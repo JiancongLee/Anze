@@ -18,7 +18,7 @@ import java.util.Date;
  */
 
 //todo 这里需要改一下
-//@ConfigurationProperties(prefix = "renren.jwt")
+@ConfigurationProperties(prefix = "anze.jwt")
 @Component
 public class JwtUtils {
     private Logger logger = LoggerFactory.getLogger(getClass());

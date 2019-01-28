@@ -1,10 +1,13 @@
+/*
 package cn.common.exception;
 
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 
+*/
 /**
  * @author jianconglee
- */
+ *//*
+
 public class LoginFailLimitException extends InternalAuthenticationServiceException {
 
     private String msg;
@@ -27,3 +30,4 @@ public class LoginFailLimitException extends InternalAuthenticationServiceExcept
         this.msg = msg;
     }
 }
+*/
