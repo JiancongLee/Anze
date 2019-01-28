@@ -1,0 +1,18 @@
+/target
+/.settings
+.classpath
+.project
+*.iml
+# Package Files #
+.settings/
+target/
+deploy.bat
+*.log
+/pom_bak.xml
+/genSql/
+/build/
+/bin/
+/catsby-logs
+.idea/
+doc/collect/
+
