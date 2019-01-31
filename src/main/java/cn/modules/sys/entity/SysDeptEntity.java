@@ -19,7 +19,7 @@ import java.io.Serializable;
 * @author zhangheng
 * @Date 2018-10-26 10:45:50
 */
-@TableName("SYS_DEPT")
+@TableName("sys_dept")
 public class SysDeptEntity extends AbstractModel<SysDeptEntity> {
     private static final long serialVersionUID = 1L;
     /**

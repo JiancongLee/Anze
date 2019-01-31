@@ -3,9 +3,11 @@ package cn.modules.sys.entity;
 import cn.afterturn.easypoi.excel.annotation.Excel;
 import cn.common.validator.group.AddGroup;
 import cn.common.validator.group.UpdateGroup;
+import com.alibaba.fastjson.annotation.JSONField;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -100,7 +102,10 @@ public class SysUserEntity implements Serializable {
 	 * 创建时间
 	 */
 	private Date createTime;
-
+	/**
+	 * 创建时间
+	 */
+	private Date modifyTime;
 
 	@TableField(exist = false)
 	private String deptName;
@@ -233,6 +238,8 @@ public class SysUserEntity implements Serializable {
 	 * 获取：创建时间
 	 * @return Date
 	 */
+	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+	@JSONField(format="yyyy-MM-dd HH:mm:ss")
 	public Date getCreateTime() {
 		return createTime;
 	}
@@ -259,5 +266,15 @@ public class SysUserEntity implements Serializable {
 
 	public void setSalt(String salt) {
 		this.salt = salt;
+	}
+
+	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+	@JSONField(format="yyyy-MM-dd HH:mm:ss")
+	public Date getModifyTime() {
+		return modifyTime;
+	}
+
+	public void setModifyTime(Date modifyTime) {
+		this.modifyTime = modifyTime;
 	}
 }

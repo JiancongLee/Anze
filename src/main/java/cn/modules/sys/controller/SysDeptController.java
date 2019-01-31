@@ -86,6 +86,11 @@ public class SysDeptController extends AbstractController {
         return Result.ok();
     }
 
+    /**
+     * 获取部门表的树状图
+     * @param entity
+     * @return
+     */
     @GetMapping(value = "/depttree")
     public Object tree(SysDeptEntity entity){
 

@@ -71,7 +71,7 @@
             AND t.SIMPLENAME = #{e.simplename}
         </if>
         <if test="e.fullname != null and e.fullname != '' ">
-            AND t.FULLNAME = #{e.fullname}
+            AND t.FULLNAME like '%${e.fullname}%'
         </if>
         <if test="e.tips != null and e.tips != '' ">
             AND t.TIPS = #{e.tips}
