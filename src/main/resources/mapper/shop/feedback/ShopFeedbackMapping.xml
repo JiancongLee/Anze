@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.modules.shop.feedback.dao.ShopFeedbackDao">
+
+    <resultMap id="BaseResultMap" type="cn.modules.shop.feedback.entity.ShopFeedbackEntity">
+        <result column="msg_id" property="id" />
+        <result column="user_id" property="userId" />
+        <result column="user_name" property="userName" />
+        <result column="mobile" property="mobile" />
+        <result column="feed_Type" property="feedType" />
+        <result column="content" property="content" />
+        <result column="status" property="status" />
+        <result column="add_time" property="addTime" />
+    </resultMap>
+
+
+    <delete id="deleteByModel">
+        delete <if test="'${dbName}' == 'mysql'"> t </if> from SHOP_FEEDBACK t
+        <where>
+            <include refid="select_content"/>
+        </where>
+    </delete>
+
+    <select id="selectCountByModel" resultType="int">
+        select count(1) from SHOP_FEEDBACK t
+        <where>
+            <include refid="select_content"/>
+        </where>
+    </select>
+
+    <select id="selectListModel" resultMap="BaseResultMap">
+        select * from SHOP_FEEDBACK t
+        <where>
+            <include refid="select_content"/>
+        </where>
+    </select>
+
+    <select id="selectPage" resultMap="BaseResultMap">
+        select * from SHOP_FEEDBACK t
+        <where>
+            <include refid="select_content"/>
+             ${ew.sqlSegment}
+        </where>
+    </select>
+
+    <select id="queryPage" resultMap="BaseResultMap">
+        select * from SHOP_FEEDBACK t
+        <where>
+            ${ew.sqlSegment}
+        </where>
+    </select>
+
+    <sql id="select_content">
+        <if test="e.msgId != null and e.msgId != '' ">
+            AND t.MSG_ID = #{e.msgId}
+        </if>
+        <if test="e.userId != null and e.userId != '' ">
+            AND t.USER_ID = #{e.userId}
+        </if>
+        <if test="e.userName != null and e.userName != '' ">
+            AND t.USER_NAME = #{e.userName}
+        </if>
+        <if test="e.mobile != null and e.mobile != '' ">
+            AND t.MOBILE = #{e.mobile}
+        </if>
+        <if test="e.feedType != null and e.feedType != '' ">
+            AND t.FEED_TYPE = #{e.feedType}
+        </if>
+        <if test="e.content != null and e.content != '' ">
+            AND t.CONTENT = #{e.content}
+        </if>
+        <if test="e.status != null and e.status != '' ">
+            AND t.STATUS = #{e.status}
+        </if>
+        <if test="e.addTime != null and e.addTime != '' ">
+            AND t.ADD_TIME = #{e.addTime}
+        </if>
+    </sql>
+
+</mapper>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.modules.shop.brand.dao.ShopBrandDao">
+
+    <resultMap id="BaseResultMap" type="cn.modules.shop.brand.entity.ShopBrandEntity">
+        <result column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="list_pic_url" property="listPicUrl" />
+        <result column="simple_desc" property="simpleDesc" />
+        <result column="pic_url" property="picUrl" />
+        <result column="sort_order" property="sortOrder" />
+        <result column="is_show" property="isShow" />
+        <result column="floor_price" property="floorPrice" />
+        <result column="app_list_pic_url" property="appListPicUrl" />
+        <result column="is_new" property="isNew" />
+        <result column="new_pic_url" property="newPicUrl" />
+        <result column="new_sort_order" property="newSortOrder" />
+    </resultMap>
+
+
+    <delete id="deleteByModel">
+        delete <if test="'${dbName}' == 'mysql'"> t </if> from SHOP_BRAND t
+        <where>
+            <include refid="select_content"/>
+        </where>
+    </delete>
+
+    <select id="selectCountByModel" resultType="int">
+        select count(1) from SHOP_BRAND t
+        <where>
+            <include refid="select_content"/>
+        </where>
+    </select>
+
+    <select id="selectListModel" resultMap="BaseResultMap">
+        select * from SHOP_BRAND t
+        <where>
+            <include refid="select_content"/>
+        </where>
+    </select>
+
+    <select id="selectPage" resultMap="BaseResultMap">
+        select * from SHOP_BRAND t
+        <where>
+            <include refid="select_content"/>
+             ${ew.sqlSegment}
+        </where>
+    </select>
+
+    <select id="queryPage" resultMap="BaseResultMap">
+        select * from SHOP_BRAND t
+        <where>
+            ${ew.sqlSegment}
+        </where>
+    </select>
+
+    <sql id="select_content">
+        <if test="e.id != null and e.id != '' ">
+            AND t.ID = #{e.id}
+        </if>
+        <if test="e.name != null and e.name != '' ">
+            AND t.NAME = #{e.name}
+        </if>
+        <if test="e.listPicUrl != null and e.listPicUrl != '' ">
+            AND t.LIST_PIC_URL = #{e.listPicUrl}
+        </if>
+        <if test="e.simpleDesc != null and e.simpleDesc != '' ">
+            AND t.SIMPLE_DESC = #{e.simpleDesc}
+        </if>
+        <if test="e.picUrl != null and e.picUrl != '' ">
+            AND t.PIC_URL = #{e.picUrl}
+        </if>
+        <if test="e.sortOrder != null and e.sortOrder != '' ">
+            AND t.SORT_ORDER = #{e.sortOrder}
+        </if>
+        <if test="e.isShow != null and e.isShow != '' ">
+            AND t.IS_SHOW = #{e.isShow}
+        </if>
+        <if test="e.floorPrice != null and e.floorPrice != '' ">
+            AND t.FLOOR_PRICE = #{e.floorPrice}
+        </if>
+        <if test="e.appListPicUrl != null and e.appListPicUrl != '' ">
+            AND t.APP_LIST_PIC_URL = #{e.appListPicUrl}
+        </if>
+        <if test="e.isNew != null and e.isNew != '' ">
+            AND t.IS_NEW = #{e.isNew}
+        </if>
+        <if test="e.newPicUrl != null and e.newPicUrl != '' ">
+            AND t.NEW_PIC_URL = #{e.newPicUrl}
+        </if>
+        <if test="e.newSortOrder != null and e.newSortOrder != '' ">
+            AND t.NEW_SORT_ORDER = #{e.newSortOrder}
+        </if>
+    </sql>
+
+</mapper>

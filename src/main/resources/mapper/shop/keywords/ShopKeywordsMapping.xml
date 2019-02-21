@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.modules.shop.keywords.dao.ShopKeywordsDao">
+
+    <resultMap id="BaseResultMap" type="cn.modules.shop.keywords.entity.ShopKeywordsEntity">
+        <result column="id" property="id" />
+        <result column="keyword" property="keyword" />
+        <result column="is_hot" property="isHot" />
+        <result column="is_default" property="isDefault" />
+        <result column="is_show" property="isShow" />
+        <result column="sort_order" property="sortOrder" />
+        <result column="scheme_url" property="schemeUrl" />
+        <result column="type" property="type" />
+    </resultMap>
+
+
+    <delete id="deleteByModel">
+        delete <if test="'${dbName}' == 'mysql'"> t </if> from SHOP_KEYWORDS t
+        <where>
+            <include refid="select_content"/>
+        </where>
+    </delete>
+
+    <select id="selectCountByModel" resultType="int">
+        select count(1) from SHOP_KEYWORDS t
+        <where>
+            <include refid="select_content"/>
+        </where>
+    </select>
+
+    <select id="selectListModel" resultMap="BaseResultMap">
+        select * from SHOP_KEYWORDS t
+        <where>
+            <include refid="select_content"/>
+        </where>
+    </select>
+
+    <select id="selectPage" resultMap="BaseResultMap">
+        select * from SHOP_KEYWORDS t
+        <where>
+            <include refid="select_content"/>
+             ${ew.sqlSegment}
+        </where>
+    </select>
+
+    <select id="queryPage" resultMap="BaseResultMap">
+        select * from SHOP_KEYWORDS t
+        <where>
+            ${ew.sqlSegment}
+        </where>
+    </select>
+
+    <sql id="select_content">
+        <if test="e.id != null and e.id != '' ">
+            AND t.ID = #{e.id}
+        </if>
+        <if test="e.keyword != null and e.keyword != '' ">
+            AND t.KEYWORD = #{e.keyword}
+        </if>
+        <if test="e.isHot != null and e.isHot != '' ">
+            AND t.IS_HOT = #{e.isHot}
+        </if>
+        <if test="e.isDefault != null and e.isDefault != '' ">
+            AND t.IS_DEFAULT = #{e.isDefault}
+        </if>
+        <if test="e.isShow != null and e.isShow != '' ">
+            AND t.IS_SHOW = #{e.isShow}
+        </if>
+        <if test="e.sortOrder != null and e.sortOrder != '' ">
+            AND t.SORT_ORDER = #{e.sortOrder}
+        </if>
+        <if test="e.schemeUrl != null and e.schemeUrl != '' ">
+            AND t.SCHEME_URL = #{e.schemeUrl}
+        </if>
+        <if test="e.type != null and e.type != '' ">
+            AND t.TYPE = #{e.type}
+        </if>
+    </sql>
+
+</mapper>

@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.modules.shop.goods.dao.ShopGoodsDao">
+
+    <resultMap id="BaseResultMap" type="cn.modules.shop.goods.entity.ShopGoodsEntity">
+        <result column="id" property="id" />
+        <result column="category_id" property="categoryId" />
+        <result column="goods_sn" property="goodsSn" />
+        <result column="name" property="name" />
+        <result column="brand_id" property="brandId" />
+        <result column="goods_number" property="goodsNumber" />
+        <result column="keywords" property="keywords" />
+        <result column="goods_brief" property="goodsBrief" />
+        <result column="goods_desc" property="goodsDesc" />
+        <result column="is_on_sale" property="isOnSale" />
+        <result column="add_time" property="addTime" />
+        <result column="sort_order" property="sortOrder" />
+        <result column="is_delete" property="isDelete" />
+        <result column="attribute_category" property="attributeCategory" />
+        <result column="counter_price" property="counterPrice" />
+        <result column="extra_price" property="extraPrice" />
+        <result column="is_new" property="isNew" />
+        <result column="goods_unit" property="goodsUnit" />
+        <result column="primary_pic_url" property="primaryPicUrl" />
+        <result column="list_pic_url" property="listPicUrl" />
+        <result column="retail_price" property="retailPrice" />
+        <result column="sell_volume" property="sellVolume" />
+        <result column="primary_product_id" property="primaryProductId" />
+        <result column="unit_price" property="unitPrice" />
+        <result column="promotion_desc" property="promotionDesc" />
+        <result column="promotion_tag" property="promotionTag" />
+        <result column="app_exclusive_price" property="appExclusivePrice" />
+        <result column="is_app_exclusive" property="isAppExclusive" />
+        <result column="is_limited" property="isLimited" />
+        <result column="is_hot" property="isHot" />
+        <result column="market_price" property="marketPrice" />
+        <result column="create_user_id" property="createUserId" />
+        <result column="update_user_id" property="updateUserId" />
+        <result column="update_time" property="updateTime" />
+        <result column="create_user_dept_id" property="createUserDeptId" />
+    </resultMap>
+
+
+    <delete id="deleteByModel">
+        delete <if test="'${dbName}' == 'mysql'"> t </if> from SHOP_GOODS t
+        <where>
+            <include refid="select_content"/>
+        </where>
+    </delete>
+
+    <select id="selectCountByModel" resultType="int">
+        select count(1) from SHOP_GOODS t
+        <where>
+            <include refid="select_content"/>
+        </where>
+    </select>
+
+    <select id="selectListModel" resultMap="BaseResultMap">
+        select * from SHOP_GOODS t
+        <where>
+            <include refid="select_content"/>
+        </where>
+    </select>
+
+    <select id="selectPage" resultMap="BaseResultMap">
+        select * from SHOP_GOODS t
+        <where>
+            <include refid="select_content"/>
+             ${ew.sqlSegment}
+        </where>
+    </select>
+
+    <select id="queryPage" resultMap="BaseResultMap">
+        select * from SHOP_GOODS t
+        <where>
+            ${ew.sqlSegment}
+        </where>
+    </select>
+
+    <sql id="select_content">
+        <if test="e.id != null and e.id != '' ">
+            AND t.ID = #{e.id}
+        </if>
+        <if test="e.categoryId != null and e.categoryId != '' ">
+            AND t.CATEGORY_ID = #{e.categoryId}
+        </if>
+        <if test="e.goodsSn != null and e.goodsSn != '' ">
+            AND t.GOODS_SN = #{e.goodsSn}
+        </if>
+        <if test="e.name != null and e.name != '' ">
+            AND t.NAME = #{e.name}
+        </if>
+        <if test="e.brandId != null and e.brandId != '' ">
+            AND t.BRAND_ID = #{e.brandId}
+        </if>
+        <if test="e.goodsNumber != null and e.goodsNumber != '' ">
+            AND t.GOODS_NUMBER = #{e.goodsNumber}
+        </if>
+        <if test="e.keywords != null and e.keywords != '' ">
+            AND t.KEYWORDS = #{e.keywords}
+        </if>
+        <if test="e.goodsBrief != null and e.goodsBrief != '' ">
+            AND t.GOODS_BRIEF = #{e.goodsBrief}
+        </if>
+        <if test="e.goodsDesc != null and e.goodsDesc != '' ">
+            AND t.GOODS_DESC = #{e.goodsDesc}
+        </if>
+        <if test="e.isOnSale != null and e.isOnSale != '' ">
+            AND t.IS_ON_SALE = #{e.isOnSale}
+        </if>
+        <if test="e.addTime != null and e.addTime != '' ">
+            AND t.ADD_TIME = #{e.addTime}
+        </if>
+        <if test="e.sortOrder != null and e.sortOrder != '' ">
+            AND t.SORT_ORDER = #{e.sortOrder}
+        </if>
+        <if test="e.isDelete != null and e.isDelete != '' ">
+            AND t.IS_DELETE = #{e.isDelete}
+        </if>
+        <if test="e.attributeCategory != null and e.attributeCategory != '' ">
+            AND t.ATTRIBUTE_CATEGORY = #{e.attributeCategory}
+        </if>
+        <if test="e.counterPrice != null and e.counterPrice != '' ">
+            AND t.COUNTER_PRICE = #{e.counterPrice}
+        </if>
+        <if test="e.extraPrice != null and e.extraPrice != '' ">
+            AND t.EXTRA_PRICE = #{e.extraPrice}
+        </if>
+        <if test="e.isNew != null and e.isNew != '' ">
+            AND t.IS_NEW = #{e.isNew}
+        </if>
+        <if test="e.goodsUnit != null and e.goodsUnit != '' ">
+            AND t.GOODS_UNIT = #{e.goodsUnit}
+        </if>
+        <if test="e.primaryPicUrl != null and e.primaryPicUrl != '' ">
+            AND t.PRIMARY_PIC_URL = #{e.primaryPicUrl}
+        </if>
+        <if test="e.listPicUrl != null and e.listPicUrl != '' ">
+            AND t.LIST_PIC_URL = #{e.listPicUrl}
+        </if>
+        <if test="e.retailPrice != null and e.retailPrice != '' ">
+            AND t.RETAIL_PRICE = #{e.retailPrice}
+        </if>
+        <if test="e.sellVolume != null and e.sellVolume != '' ">
+            AND t.SELL_VOLUME = #{e.sellVolume}
+        </if>
+        <if test="e.primaryProductId != null and e.primaryProductId != '' ">
+            AND t.PRIMARY_PRODUCT_ID = #{e.primaryProductId}
+        </if>
+        <if test="e.unitPrice != null and e.unitPrice != '' ">
+            AND t.UNIT_PRICE = #{e.unitPrice}
+        </if>
+        <if test="e.promotionDesc != null and e.promotionDesc != '' ">
+            AND t.PROMOTION_DESC = #{e.promotionDesc}
+        </if>
+        <if test="e.promotionTag != null and e.promotionTag != '' ">
+            AND t.PROMOTION_TAG = #{e.promotionTag}
+        </if>
+        <if test="e.appExclusivePrice != null and e.appExclusivePrice != '' ">
+            AND t.APP_EXCLUSIVE_PRICE = #{e.appExclusivePrice}
+        </if>
+        <if test="e.isAppExclusive != null and e.isAppExclusive != '' ">
+            AND t.IS_APP_EXCLUSIVE = #{e.isAppExclusive}
+        </if>
+        <if test="e.isLimited != null and e.isLimited != '' ">
+            AND t.IS_LIMITED = #{e.isLimited}
+        </if>
+        <if test="e.isHot != null and e.isHot != '' ">
+            AND t.IS_HOT = #{e.isHot}
+        </if>
+        <if test="e.marketPrice != null and e.marketPrice != '' ">
+            AND t.MARKET_PRICE = #{e.marketPrice}
+        </if>
+        <if test="e.createUserId != null and e.createUserId != '' ">
+            AND t.CREATE_USER_ID = #{e.createUserId}
+        </if>
+        <if test="e.updateUserId != null and e.updateUserId != '' ">
+            AND t.UPDATE_USER_ID = #{e.updateUserId}
+        </if>
+        <if test="e.updateTime != null and e.updateTime != '' ">
+            AND t.UPDATE_TIME = #{e.updateTime}
+        </if>
+        <if test="e.createUserDeptId != null and e.createUserDeptId != '' ">
+            AND t.CREATE_USER_DEPT_ID = #{e.createUserDeptId}
+        </if>
+    </sql>
+
+</mapper>

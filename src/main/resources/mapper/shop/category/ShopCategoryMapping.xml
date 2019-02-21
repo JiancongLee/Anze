@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.modules.shop.category.dao.ShopCategoryDao">
+
+    <resultMap id="BaseResultMap" type="cn.modules.shop.category.entity.ShopCategoryEntity">
+        <result column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="keywords" property="keywords" />
+        <result column="front_desc" property="frontDesc" />
+        <result column="parent_id" property="parentId" />
+        <result column="sort_order" property="sortOrder" />
+        <result column="show_index" property="showIndex" />
+        <result column="is_show" property="isShow" />
+        <result column="banner_url" property="bannerUrl" />
+        <result column="icon_url" property="iconUrl" />
+        <result column="img_url" property="imgUrl" />
+        <result column="wap_banner_url" property="wapBannerUrl" />
+        <result column="level" property="level" />
+        <result column="type" property="type" />
+        <result column="front_name" property="frontName" />
+    </resultMap>
+
+
+    <delete id="deleteByModel">
+        delete <if test="'${dbName}' == 'mysql'"> t </if> from SHOP_CATEGORY t
+        <where>
+            <include refid="select_content"/>
+        </where>
+    </delete>
+
+    <select id="selectCountByModel" resultType="int">
+        select count(1) from SHOP_CATEGORY t
+        <where>
+            <include refid="select_content"/>
+        </where>
+    </select>
+
+    <select id="selectListModel" resultMap="BaseResultMap">
+        select * from SHOP_CATEGORY t
+        <where>
+            <include refid="select_content"/>
+        </where>
+    </select>
+
+    <select id="selectPage" resultMap="BaseResultMap">
+        select * from SHOP_CATEGORY t
+        <where>
+            <include refid="select_content"/>
+             ${ew.sqlSegment}
+        </where>
+    </select>
+
+    <select id="queryPage" resultMap="BaseResultMap">
+        select * from SHOP_CATEGORY t
+        <where>
+            ${ew.sqlSegment}
+        </where>
+    </select>
+
+    <sql id="select_content">
+        <if test="e.id != null and e.id != '' ">
+            AND t.ID = #{e.id}
+        </if>
+        <if test="e.name != null and e.name != '' ">
+            AND t.NAME = #{e.name}
+        </if>
+        <if test="e.keywords != null and e.keywords != '' ">
+            AND t.KEYWORDS = #{e.keywords}
+        </if>
+        <if test="e.frontDesc != null and e.frontDesc != '' ">
+            AND t.FRONT_DESC = #{e.frontDesc}
+        </if>
+        <if test="e.parentId != null and e.parentId != '' ">
+            AND t.PARENT_ID = #{e.parentId}
+        </if>
+        <if test="e.sortOrder != null and e.sortOrder != '' ">
+            AND t.SORT_ORDER = #{e.sortOrder}
+        </if>
+        <if test="e.showIndex != null and e.showIndex != '' ">
+            AND t.SHOW_INDEX = #{e.showIndex}
+        </if>
+        <if test="e.isShow != null and e.isShow != '' ">
+            AND t.IS_SHOW = #{e.isShow}
+        </if>
+        <if test="e.bannerUrl != null and e.bannerUrl != '' ">
+            AND t.BANNER_URL = #{e.bannerUrl}
+        </if>
+        <if test="e.iconUrl != null and e.iconUrl != '' ">
+            AND t.ICON_URL = #{e.iconUrl}
+        </if>
+        <if test="e.imgUrl != null and e.imgUrl != '' ">
+            AND t.IMG_URL = #{e.imgUrl}
+        </if>
+        <if test="e.wapBannerUrl != null and e.wapBannerUrl != '' ">
+            AND t.WAP_BANNER_URL = #{e.wapBannerUrl}
+        </if>
+        <if test="e.level != null and e.level != '' ">
+            AND t.LEVEL = #{e.level}
+        </if>
+        <if test="e.type != null and e.type != '' ">
+            AND t.TYPE = #{e.type}
+        </if>
+        <if test="e.frontName != null and e.frontName != '' ">
+            AND t.FRONT_NAME = #{e.frontName}
+        </if>
+    </sql>
+
+</mapper>

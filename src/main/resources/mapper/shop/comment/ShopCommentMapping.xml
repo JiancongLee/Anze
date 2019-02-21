@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.modules.shop.comment.dao.ShopCommentDao">
+
+    <resultMap id="BaseResultMap" type="cn.modules.shop.comment.entity.ShopCommentEntity">
+        <result column="id" property="id" />
+        <result column="type_id" property="typeId" />
+        <result column="value_id" property="valueId" />
+        <result column="content" property="content" />
+        <result column="add_time" property="addTime" />
+        <result column="status" property="status" />
+        <result column="user_id" property="userId" />
+    </resultMap>
+
+
+    <delete id="deleteByModel">
+        delete <if test="'${dbName}' == 'mysql'"> t </if> from SHOP_COMMENT t
+        <where>
+            <include refid="select_content"/>
+        </where>
+    </delete>
+
+    <select id="selectCountByModel" resultType="int">
+        select count(1) from SHOP_COMMENT t
+        <where>
+            <include refid="select_content"/>
+        </where>
+    </select>
+
+    <select id="selectListModel" resultMap="BaseResultMap">
+        select * from SHOP_COMMENT t
+        <where>
+            <include refid="select_content"/>
+        </where>
+    </select>
+
+    <select id="selectPage" resultMap="BaseResultMap">
+        select * from SHOP_COMMENT t
+        <where>
+            <include refid="select_content"/>
+             ${ew.sqlSegment}
+        </where>
+    </select>
+
+    <select id="queryPage" resultMap="BaseResultMap">
+        select * from SHOP_COMMENT t
+        <where>
+            ${ew.sqlSegment}
+        </where>
+    </select>
+
+    <sql id="select_content">
+        <if test="e.id != null and e.id != '' ">
+            AND t.ID = #{e.id}
+        </if>
+        <if test="e.typeId != null and e.typeId != '' ">
+            AND t.TYPE_ID = #{e.typeId}
+        </if>
+        <if test="e.valueId != null and e.valueId != '' ">
+            AND t.VALUE_ID = #{e.valueId}
+        </if>
+        <if test="e.content != null and e.content != '' ">
+            AND t.CONTENT = #{e.content}
+        </if>
+        <if test="e.addTime != null and e.addTime != '' ">
+            AND t.ADD_TIME = #{e.addTime}
+        </if>
+        <if test="e.status != null and e.status != '' ">
+            AND t.STATUS = #{e.status}
+        </if>
+        <if test="e.userId != null and e.userId != '' ">
+            AND t.USER_ID = #{e.userId}
+        </if>
+    </sql>
+
+</mapper>

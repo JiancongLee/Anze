@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.modules.shop.goodsIssue.dao.ShopGoodsIssueDao">
+
+    <resultMap id="BaseResultMap" type="cn.modules.shop.goodsIssue.entity.ShopGoodsIssueEntity">
+        <result column="id" property="id" />
+        <result column="question" property="question" />
+        <result column="answer" property="answer" />
+    </resultMap>
+
+
+    <delete id="deleteByModel">
+        delete <if test="'${dbName}' == 'mysql'"> t </if> from SHOP_GOODS_ISSUE t
+        <where>
+            <include refid="select_content"/>
+        </where>
+    </delete>
+
+    <select id="selectCountByModel" resultType="int">
+        select count(1) from SHOP_GOODS_ISSUE t
+        <where>
+            <include refid="select_content"/>
+        </where>
+    </select>
+
+    <select id="selectListModel" resultMap="BaseResultMap">
+        select * from SHOP_GOODS_ISSUE t
+        <where>
+            <include refid="select_content"/>
+        </where>
+    </select>
+
+    <select id="selectPage" resultMap="BaseResultMap">
+        select * from SHOP_GOODS_ISSUE t
+        <where>
+            <include refid="select_content"/>
+             ${ew.sqlSegment}
+        </where>
+    </select>
+
+    <select id="queryPage" resultMap="BaseResultMap">
+        select * from SHOP_GOODS_ISSUE t
+        <where>
+            ${ew.sqlSegment}
+        </where>
+    </select>
+
+    <sql id="select_content">
+        <if test="e.id != null and e.id != '' ">
+            AND t.ID = #{e.id}
+        </if>
+        <if test="e.question != null and e.question != '' ">
+            AND t.QUESTION = #{e.question}
+        </if>
+        <if test="e.answer != null and e.answer != '' ">
+            AND t.ANSWER = #{e.answer}
+        </if>
+    </sql>
+
+</mapper>
