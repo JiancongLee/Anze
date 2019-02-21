@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.modules.shop.searchHistory.dao.ShopSearchHistoryDao">
+
+    <resultMap id="BaseResultMap" type="cn.modules.shop.searchHistory.entity.ShopSearchHistoryEntity">
+        <result column="id" property="id" />
+        <result column="keyword" property="keyword" />
+        <result column="from" property="from" />
+        <result column="add_time" property="addTime" />
+        <result column="user_id" property="userId" />
+    </resultMap>
+
+
+    <delete id="deleteByModel">
+        delete <if test="'${dbName}' == 'mysql'"> t </if> from SHOP_SEARCH_HISTORY t
+        <where>
+            <include refid="select_content"/>
+        </where>
+    </delete>
+
+    <select id="selectCountByModel" resultType="int">
+        select count(1) from SHOP_SEARCH_HISTORY t
+        <where>
+            <include refid="select_content"/>
+        </where>
+    </select>
+
+    <select id="selectListModel" resultMap="BaseResultMap">
+        select * from SHOP_SEARCH_HISTORY t
+        <where>
+            <include refid="select_content"/>
+        </where>
+    </select>
+
+    <select id="selectPage" resultMap="BaseResultMap">
+        select * from SHOP_SEARCH_HISTORY t
+        <where>
+            <include refid="select_content"/>
+             ${ew.sqlSegment}
+        </where>
+    </select>
+
+    <select id="queryPage" resultMap="BaseResultMap">
+        select * from SHOP_SEARCH_HISTORY t
+        <where>
+            ${ew.sqlSegment}
+        </where>
+    </select>
+
+    <sql id="select_content">
+        <if test="e.id != null and e.id != '' ">
+            AND t.ID = #{e.id}
+        </if>
+        <if test="e.keyword != null and e.keyword != '' ">
+            AND t.KEYWORD = #{e.keyword}
+        </if>
+        <if test="e.from != null and e.from != '' ">
+            AND t.FROM = #{e.from}
+        </if>
+        <if test="e.addTime != null and e.addTime != '' ">
+            AND t.ADD_TIME = #{e.addTime}
+        </if>
+        <if test="e.userId != null and e.userId != '' ">
+            AND t.USER_ID = #{e.userId}
+        </if>
+    </sql>
+
+</mapper>

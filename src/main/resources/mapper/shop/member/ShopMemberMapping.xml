@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.modules.shop.member.dao.ShopMemberDao">
+
+    <resultMap id="BaseResultMap" type="cn.modules.shop.member.entity.ShopMemberEntity">
+        <result column="id" property="id" />
+        <result column="username" property="username" />
+        <result column="password" property="password" />
+        <result column="status" property="status" />
+        <result column="gender" property="gender" />
+        <result column="birthday" property="birthday" />
+        <result column="register_time" property="registerTime" />
+        <result column="last_login_time" property="lastLoginTime" />
+        <result column="last_login_ip" property="lastLoginIp" />
+        <result column="user_level_code" property="userLevelCode" />
+        <result column="nickname" property="nickname" />
+        <result column="mobile" property="mobile" />
+        <result column="avatar" property="avatar" />
+        <result column="weixin_openid" property="weixinOpenid" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+
+    <delete id="deleteByModel">
+        delete <if test="'${dbName}' == 'mysql'"> t </if> from SHOP_MEMBER t
+        <where>
+            <include refid="select_content"/>
+        </where>
+    </delete>
+
+    <select id="selectCountByModel" resultType="int">
+        select count(1) from SHOP_MEMBER t
+        <where>
+            <include refid="select_content"/>
+        </where>
+    </select>
+
+    <select id="selectListModel" resultMap="BaseResultMap">
+        select * from SHOP_MEMBER t
+        <where>
+            <include refid="select_content"/>
+        </where>
+    </select>
+
+    <select id="selectPage" resultMap="BaseResultMap">
+        select * from SHOP_MEMBER t
+        <where>
+            <include refid="select_content"/>
+             ${ew.sqlSegment}
+        </where>
+    </select>
+
+    <select id="queryPage" resultMap="BaseResultMap">
+        select * from SHOP_MEMBER t
+        <where>
+            ${ew.sqlSegment}
+        </where>
+    </select>
+
+    <sql id="select_content">
+        <if test="e.id != null and e.id != '' ">
+            AND t.ID = #{e.id}
+        </if>
+        <if test="e.username != null and e.username != '' ">
+            AND t.USERNAME = #{e.username}
+        </if>
+        <if test="e.password != null and e.password != '' ">
+            AND t.PASSWORD = #{e.password}
+        </if>
+        <if test="e.status != null and e.status != '' ">
+            AND t.STATUS = #{e.status}
+        </if>
+        <if test="e.gender != null and e.gender != '' ">
+            AND t.GENDER = #{e.gender}
+        </if>
+        <if test="e.birthday != null and e.birthday != '' ">
+            AND t.BIRTHDAY = #{e.birthday}
+        </if>
+        <if test="e.registerTime != null and e.registerTime != '' ">
+            AND t.REGISTER_TIME = #{e.registerTime}
+        </if>
+        <if test="e.lastLoginTime != null and e.lastLoginTime != '' ">
+            AND t.LAST_LOGIN_TIME = #{e.lastLoginTime}
+        </if>
+        <if test="e.lastLoginIp != null and e.lastLoginIp != '' ">
+            AND t.LAST_LOGIN_IP = #{e.lastLoginIp}
+        </if>
+        <if test="e.userLevelCode != null and e.userLevelCode != '' ">
+            AND t.USER_LEVEL_CODE = #{e.userLevelCode}
+        </if>
+        <if test="e.nickname != null and e.nickname != '' ">
+            AND t.NICKNAME = #{e.nickname}
+        </if>
+        <if test="e.mobile != null and e.mobile != '' ">
+            AND t.MOBILE = #{e.mobile}
+        </if>
+        <if test="e.avatar != null and e.avatar != '' ">
+            AND t.AVATAR = #{e.avatar}
+        </if>
+        <if test="e.weixinOpenid != null and e.weixinOpenid != '' ">
+            AND t.WEIXIN_OPENID = #{e.weixinOpenid}
+        </if>
+        <if test="e.createTime != null and e.createTime != '' ">
+            AND t.CREATE_TIME = #{e.createTime}
+        </if>
+        <if test="e.updateTime != null and e.updateTime != '' ">
+            AND t.UPDATE_TIME = #{e.updateTime}
+        </if>
+    </sql>
+
+</mapper>

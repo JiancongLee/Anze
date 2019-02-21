@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.modules.shop.address.dao.ShopAddressDao">
+
+    <resultMap id="BaseResultMap" type="cn.modules.shop.address.entity.ShopAddressEntity">
+        <result column="id" property="id" />
+        <result column="user_id" property="userId" />
+        <result column="user_name" property="userName" />
+        <result column="tel_number" property="telNumber" />
+        <result column="postal_Code" property="postalCode" />
+        <result column="national_Code" property="nationalCode" />
+        <result column="province_Name" property="provinceName" />
+        <result column="city_Name" property="cityName" />
+        <result column="county_Name" property="countyName" />
+        <result column="detail_Info" property="detailInfo" />
+    </resultMap>
+
+
+    <delete id="deleteByModel">
+        delete <if test="'${dbName}' == 'mysql'"> t </if> from SHOP_ADDRESS t
+        <where>
+            <include refid="select_content"/>
+        </where>
+    </delete>
+
+    <select id="selectCountByModel" resultType="int">
+        select count(1) from SHOP_ADDRESS t
+        <where>
+            <include refid="select_content"/>
+        </where>
+    </select>
+
+    <select id="selectListModel" resultMap="BaseResultMap">
+        select * from SHOP_ADDRESS t
+        <where>
+            <include refid="select_content"/>
+        </where>
+    </select>
+
+    <select id="selectPage" resultMap="BaseResultMap">
+        select * from SHOP_ADDRESS t
+        <where>
+            <include refid="select_content"/>
+             ${ew.sqlSegment}
+        </where>
+    </select>
+
+    <select id="queryPage" resultMap="BaseResultMap">
+        select * from SHOP_ADDRESS t
+        <where>
+            ${ew.sqlSegment}
+        </where>
+    </select>
+
+    <sql id="select_content">
+        <if test="e.id != null and e.id != '' ">
+            AND t.ID = #{e.id}
+        </if>
+        <if test="e.userId != null and e.userId != '' ">
+            AND t.USER_ID = #{e.userId}
+        </if>
+        <if test="e.userName != null and e.userName != '' ">
+            AND t.USER_NAME = #{e.userName}
+        </if>
+        <if test="e.telNumber != null and e.telNumber != '' ">
+            AND t.TEL_NUMBER = #{e.telNumber}
+        </if>
+        <if test="e.postalCode != null and e.postalCode != '' ">
+            AND t.POSTAL_CODE = #{e.postalCode}
+        </if>
+        <if test="e.nationalCode != null and e.nationalCode != '' ">
+            AND t.NATIONAL_CODE = #{e.nationalCode}
+        </if>
+        <if test="e.provinceName != null and e.provinceName != '' ">
+            AND t.PROVINCE_NAME = #{e.provinceName}
+        </if>
+        <if test="e.cityName != null and e.cityName != '' ">
+            AND t.CITY_NAME = #{e.cityName}
+        </if>
+        <if test="e.countyName != null and e.countyName != '' ">
+            AND t.COUNTY_NAME = #{e.countyName}
+        </if>
+        <if test="e.detailInfo != null and e.detailInfo != '' ">
+            AND t.DETAIL_INFO = #{e.detailInfo}
+        </if>
+    </sql>
+
+</mapper>

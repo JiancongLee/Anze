@@ -1,9 +1,11 @@
 package cn.modules.sys.entity;
 
 
+import com.alibaba.fastjson.annotation.JSONField;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
@@ -50,6 +52,18 @@ public class SysRoleEntity implements Serializable {
 	 * 创建时间
 	 */
 	private Date createTime;
+
+
+	/**
+	 * 修改者ID
+	 */
+	private Long modifyUserId;
+
+	/**
+	 * 修改时间
+	 */
+	private Date modifyTime;
+
 
 	/**
 	 * 设置：
@@ -99,6 +113,8 @@ public class SysRoleEntity implements Serializable {
 		return remark;
 	}
 
+	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+	@JSONField(format="yyyy-MM-dd HH:mm:ss")
 	public Date getCreateTime() {
 		return createTime;
 	}
@@ -122,5 +138,22 @@ public class SysRoleEntity implements Serializable {
 	public void setCreateUserId(Long createUserId) {
 		this.createUserId = createUserId;
 	}
-	
+
+	public Long getModifyUserId() {
+		return modifyUserId;
+	}
+
+	public void setModifyUserId(Long modifyUserId) {
+		this.modifyUserId = modifyUserId;
+	}
+
+	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+	@JSONField(format="yyyy-MM-dd HH:mm:ss")
+	public Date getModifyTime() {
+		return modifyTime;
+	}
+
+	public void setModifyTime(Date modifyTime) {
+		this.modifyTime = modifyTime;
+	}
 }

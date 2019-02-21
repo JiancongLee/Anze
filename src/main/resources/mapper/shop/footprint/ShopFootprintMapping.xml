@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.modules.shop.footprint.dao.ShopFootprintDao">
+
+    <resultMap id="BaseResultMap" type="cn.modules.shop.footprint.entity.ShopFootprintEntity">
+        <result column="id" property="id" />
+        <result column="user_id" property="userId" />
+        <result column="goods_id" property="goodsId" />
+        <result column="add_time" property="addTime" />
+        <result column="referrer" property="referrer" />
+    </resultMap>
+
+
+    <delete id="deleteByModel">
+        delete <if test="'${dbName}' == 'mysql'"> t </if> from SHOP_FOOTPRINT t
+        <where>
+            <include refid="select_content"/>
+        </where>
+    </delete>
+
+    <select id="selectCountByModel" resultType="int">
+        select count(1) from SHOP_FOOTPRINT t
+        <where>
+            <include refid="select_content"/>
+        </where>
+    </select>
+
+    <select id="selectListModel" resultMap="BaseResultMap">
+        select * from SHOP_FOOTPRINT t
+        <where>
+            <include refid="select_content"/>
+        </where>
+    </select>
+
+    <select id="selectPage" resultMap="BaseResultMap">
+        select * from SHOP_FOOTPRINT t
+        <where>
+            <include refid="select_content"/>
+             ${ew.sqlSegment}
+        </where>
+    </select>
+
+    <select id="queryPage" resultMap="BaseResultMap">
+        select * from SHOP_FOOTPRINT t
+        <where>
+            ${ew.sqlSegment}
+        </where>
+    </select>
+
+    <sql id="select_content">
+        <if test="e.id != null and e.id != '' ">
+            AND t.ID = #{e.id}
+        </if>
+        <if test="e.userId != null and e.userId != '' ">
+            AND t.USER_ID = #{e.userId}
+        </if>
+        <if test="e.goodsId != null and e.goodsId != '' ">
+            AND t.GOODS_ID = #{e.goodsId}
+        </if>
+        <if test="e.addTime != null and e.addTime != '' ">
+            AND t.ADD_TIME = #{e.addTime}
+        </if>
+        <if test="e.referrer != null and e.referrer != '' ">
+            AND t.REFERRER = #{e.referrer}
+        </if>
+    </sql>
+
+</mapper>

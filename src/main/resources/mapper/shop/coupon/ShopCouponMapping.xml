@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.modules.shop.coupon.dao.ShopCouponDao">
+
+    <resultMap id="BaseResultMap" type="cn.modules.shop.coupon.entity.ShopCouponEntity">
+        <result column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="type_money" property="typeMoney" />
+        <result column="send_type" property="sendType" />
+        <result column="min_amount" property="minAmount" />
+        <result column="max_amount" property="maxAmount" />
+        <result column="send_start_date" property="sendStartDate" />
+        <result column="send_end_date" property="sendEndDate" />
+        <result column="use_start_date" property="useStartDate" />
+        <result column="use_end_date" property="useEndDate" />
+        <result column="min_goods_amount" property="minGoodsAmount" />
+        <result column="min_transmit_num" property="minTransmitNum" />
+    </resultMap>
+
+
+    <delete id="deleteByModel">
+        delete <if test="'${dbName}' == 'mysql'"> t </if> from SHOP_COUPON t
+        <where>
+            <include refid="select_content"/>
+        </where>
+    </delete>
+
+    <select id="selectCountByModel" resultType="int">
+        select count(1) from SHOP_COUPON t
+        <where>
+            <include refid="select_content"/>
+        </where>
+    </select>
+
+    <select id="selectListModel" resultMap="BaseResultMap">
+        select * from SHOP_COUPON t
+        <where>
+            <include refid="select_content"/>
+        </where>
+    </select>
+
+    <select id="selectPage" resultMap="BaseResultMap">
+        select * from SHOP_COUPON t
+        <where>
+            <include refid="select_content"/>
+             ${ew.sqlSegment}
+        </where>
+    </select>
+
+    <select id="queryPage" resultMap="BaseResultMap">
+        select * from SHOP_COUPON t
+        <where>
+            ${ew.sqlSegment}
+        </where>
+    </select>
+
+    <sql id="select_content">
+        <if test="e.id != null and e.id != '' ">
+            AND t.ID = #{e.id}
+        </if>
+        <if test="e.name != null and e.name != '' ">
+            AND t.NAME = #{e.name}
+        </if>
+        <if test="e.typeMoney != null and e.typeMoney != '' ">
+            AND t.TYPE_MONEY = #{e.typeMoney}
+        </if>
+        <if test="e.sendType != null and e.sendType != '' ">
+            AND t.SEND_TYPE = #{e.sendType}
+        </if>
+        <if test="e.minAmount != null and e.minAmount != '' ">
+            AND t.MIN_AMOUNT = #{e.minAmount}
+        </if>
+        <if test="e.maxAmount != null and e.maxAmount != '' ">
+            AND t.MAX_AMOUNT = #{e.maxAmount}
+        </if>
+        <if test="e.sendStartDate != null and e.sendStartDate != '' ">
+            AND t.SEND_START_DATE = #{e.sendStartDate}
+        </if>
+        <if test="e.sendEndDate != null and e.sendEndDate != '' ">
+            AND t.SEND_END_DATE = #{e.sendEndDate}
+        </if>
+        <if test="e.useStartDate != null and e.useStartDate != '' ">
+            AND t.USE_START_DATE = #{e.useStartDate}
+        </if>
+        <if test="e.useEndDate != null and e.useEndDate != '' ">
+            AND t.USE_END_DATE = #{e.useEndDate}
+        </if>
+        <if test="e.minGoodsAmount != null and e.minGoodsAmount != '' ">
+            AND t.MIN_GOODS_AMOUNT = #{e.minGoodsAmount}
+        </if>
+        <if test="e.minTransmitNum != null and e.minTransmitNum != '' ">
+            AND t.MIN_TRANSMIT_NUM = #{e.minTransmitNum}
+        </if>
+    </sql>
+
+</mapper>

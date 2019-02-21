@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.modules.shop.cart.dao.ShopCartDao">
+
+    <resultMap id="BaseResultMap" type="cn.modules.shop.cart.entity.ShopCartEntity">
+        <result column="id" property="id" />
+        <result column="user_id" property="userId" />
+        <result column="session_id" property="sessionId" />
+        <result column="goods_id" property="goodsId" />
+        <result column="goods_sn" property="goodsSn" />
+        <result column="product_id" property="productId" />
+        <result column="goods_name" property="goodsName" />
+        <result column="market_price" property="marketPrice" />
+        <result column="retail_price" property="retailPrice" />
+        <result column="number" property="number" />
+        <result column="goods_specifition_name_value" property="goodsSpecifitionNameValue" />
+        <result column="goods_specifition_ids" property="goodsSpecifitionIds" />
+        <result column="checked" property="checked" />
+        <result column="list_pic_url" property="listPicUrl" />
+        <result column="add_time" property="addTime" />
+    </resultMap>
+
+
+    <delete id="deleteByModel">
+        delete <if test="'${dbName}' == 'mysql'"> t </if> from SHOP_CART t
+        <where>
+            <include refid="select_content"/>
+        </where>
+    </delete>
+
+    <select id="selectCountByModel" resultType="int">
+        select count(1) from SHOP_CART t
+        <where>
+            <include refid="select_content"/>
+        </where>
+    </select>
+
+    <select id="selectListModel" resultMap="BaseResultMap">
+        select * from SHOP_CART t
+        <where>
+            <include refid="select_content"/>
+        </where>
+    </select>
+
+    <select id="selectPage" resultMap="BaseResultMap">
+        select * from SHOP_CART t
+        <where>
+            <include refid="select_content"/>
+             ${ew.sqlSegment}
+        </where>
+    </select>
+
+    <select id="queryPage" resultMap="BaseResultMap">
+        select * from SHOP_CART t
+        <where>
+            ${ew.sqlSegment}
+        </where>
+    </select>
+
+    <sql id="select_content">
+        <if test="e.id != null and e.id != '' ">
+            AND t.ID = #{e.id}
+        </if>
+        <if test="e.userId != null and e.userId != '' ">
+            AND t.USER_ID = #{e.userId}
+        </if>
+        <if test="e.sessionId != null and e.sessionId != '' ">
+            AND t.SESSION_ID = #{e.sessionId}
+        </if>
+        <if test="e.goodsId != null and e.goodsId != '' ">
+            AND t.GOODS_ID = #{e.goodsId}
+        </if>
+        <if test="e.goodsSn != null and e.goodsSn != '' ">
+            AND t.GOODS_SN = #{e.goodsSn}
+        </if>
+        <if test="e.productId != null and e.productId != '' ">
+            AND t.PRODUCT_ID = #{e.productId}
+        </if>
+        <if test="e.goodsName != null and e.goodsName != '' ">
+            AND t.GOODS_NAME = #{e.goodsName}
+        </if>
+        <if test="e.marketPrice != null and e.marketPrice != '' ">
+            AND t.MARKET_PRICE = #{e.marketPrice}
+        </if>
+        <if test="e.retailPrice != null and e.retailPrice != '' ">
+            AND t.RETAIL_PRICE = #{e.retailPrice}
+        </if>
+        <if test="e.number != null and e.number != '' ">
+            AND t.NUMBER = #{e.number}
+        </if>
+        <if test="e.goodsSpecifitionNameValue != null and e.goodsSpecifitionNameValue != '' ">
+            AND t.GOODS_SPECIFITION_NAME_VALUE = #{e.goodsSpecifitionNameValue}
+        </if>
+        <if test="e.goodsSpecifitionIds != null and e.goodsSpecifitionIds != '' ">
+            AND t.GOODS_SPECIFITION_IDS = #{e.goodsSpecifitionIds}
+        </if>
+        <if test="e.checked != null and e.checked != '' ">
+            AND t.CHECKED = #{e.checked}
+        </if>
+        <if test="e.listPicUrl != null and e.listPicUrl != '' ">
+            AND t.LIST_PIC_URL = #{e.listPicUrl}
+        </if>
+        <if test="e.addTime != null and e.addTime != '' ">
+            AND t.ADD_TIME = #{e.addTime}
+        </if>
+    </sql>
+
+</mapper>
