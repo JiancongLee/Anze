@@ -34,8 +34,8 @@ public class ShopFootprintEntity extends AbstractModel<ShopFootprintEntity> {
     * 会员Id
     */
     @Excel(name = "会员Id")
-    @TableField(value="user_id")
-    private Long userId;
+    @TableField(value="member_id")
+    private Long memberId;
     /**
     * 商品id
     */
@@ -46,14 +46,8 @@ public class ShopFootprintEntity extends AbstractModel<ShopFootprintEntity> {
     * 记录时间
     */
     @Excel(name = "记录时间",exportFormat = "yyyy-MM-dd HH:mm:ss")
-    @TableField(value="add_time")
-    private Date addTime;
-    /**
-    * 转发人
-    */
-    @Excel(name = "转发人")
-    @TableField(value="referrer")
-    private Integer referrer;
+    @TableField(value="create_time")
+    private Date createTime;
     /**
     * 获取: 主键
     */
@@ -70,15 +64,15 @@ public class ShopFootprintEntity extends AbstractModel<ShopFootprintEntity> {
     /**
     * 获取: 会员Id
     */
-    public Long getUserId() {
-        return userId;
+    public Long getMemberId() {
+        return memberId;
     }
     /**
     * 设置: 会员Id
     * 
     */
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setMemberId(Long memberId) {
+        this.memberId = memberId;
     }
     /**
     * 获取: 商品id
@@ -98,28 +92,15 @@ public class ShopFootprintEntity extends AbstractModel<ShopFootprintEntity> {
     */
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @JSONField(format="yyyy-MM-dd HH:mm:ss")
-    public Date getAddTime() {
-        return addTime;
+    public Date getCreateTime() {
+        return createTime;
     }
     /**
     * 设置: 记录时间
     * 
     */
-    public void setAddTime(Date addTime) {
-        this.addTime = addTime;
-    }
-    /**
-    * 获取: 转发人
-    */
-    public Integer getReferrer() {
-        return referrer;
-    }
-    /**
-    * 设置: 转发人
-    * 
-    */
-    public void setReferrer(Integer referrer) {
-        this.referrer = referrer;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
     @Override
@@ -131,6 +112,8 @@ public class ShopFootprintEntity extends AbstractModel<ShopFootprintEntity> {
     public void preInsert() {
         Sequence sequence = new Sequence(0, 0);
         this.id = sequence.nextId();
+        Date date = new Date();
+        this.createTime = date;
     }
     @Override
     public void preUpdate() {

@@ -34,8 +34,8 @@ public class ShopAddressEntity extends AbstractModel<ShopAddressEntity> {
     * 会员ID
     */
     @Excel(name = "会员ID")
-    @TableField(value="user_id")
-    private Long userId;
+    @TableField(value="member_id")
+    private Long memberId;
     /**
     * 收货人姓名
     */
@@ -54,12 +54,6 @@ public class ShopAddressEntity extends AbstractModel<ShopAddressEntity> {
     @Excel(name = "邮编")
     @TableField(value="postal_Code")
     private String postalCode;
-    /**
-    * 收货地址国家码
-    */
-    @Excel(name = "收货地址国家码")
-    @TableField(value="national_Code")
-    private String nationalCode;
     /**
     * 省
     */
@@ -85,6 +79,26 @@ public class ShopAddressEntity extends AbstractModel<ShopAddressEntity> {
     @TableField(value="detail_Info")
     private String detailInfo;
     /**
+     * 是否为默认地址:0不是 1是
+     */
+    @Excel(name = "是否为默认地址")
+    @TableField(value="is_default")
+    private Integer isDefault;
+    /**
+     * 创建时间
+     */
+    @Excel(name = "创建时间",exportFormat = "yyyy-MM-dd HH:mm:ss")
+    @TableField(value="create_time")
+    private Date createTime;
+    /**
+     * 更新时间
+     */
+    @Excel(name = "更新时间",exportFormat = "yyyy-MM-dd HH:mm:ss")
+    @TableField(value="update_time")
+    private Date updateTime;
+
+
+    /**
     * 获取: 主键
     */
     public Long getId() {
@@ -100,15 +114,15 @@ public class ShopAddressEntity extends AbstractModel<ShopAddressEntity> {
     /**
     * 获取: 会员ID
     */
-    public Long getUserId() {
-        return userId;
+    public Long getMemberId() {
+        return memberId;
     }
     /**
     * 设置: 会员ID
     * 
     */
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setMemberId(Long memberId) {
+        this.memberId = memberId;
     }
     /**
     * 获取: 收货人姓名
@@ -148,19 +162,6 @@ public class ShopAddressEntity extends AbstractModel<ShopAddressEntity> {
     */
     public void setPostalCode(String postalCode) {
         this.postalCode = postalCode;
-    }
-    /**
-    * 获取: 收货地址国家码
-    */
-    public String getNationalCode() {
-        return nationalCode;
-    }
-    /**
-    * 设置: 收货地址国家码
-    * 
-    */
-    public void setNationalCode(String nationalCode) {
-        this.nationalCode = nationalCode;
     }
     /**
     * 获取: 省
@@ -214,6 +215,49 @@ public class ShopAddressEntity extends AbstractModel<ShopAddressEntity> {
     public void setDetailInfo(String detailInfo) {
         this.detailInfo = detailInfo;
     }
+    /**
+     * 获取: 是否为默认地址
+     */
+    public Integer getIsDefault() {
+        return isDefault;
+    }
+    /**
+     * 设置: 是否为默认地址
+     *
+     */
+    public void setIsDefault(Integer isDefault) {
+        this.isDefault = isDefault;
+    }
+    /**
+     * 获取: 创建时间
+     */
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
+    public Date getCreateTime() {
+        return createTime;
+    }
+    /**
+     * 设置: 创建时间
+     *
+     */
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+    /**
+     * 获取: 更新时间
+     */
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+    /**
+     * 设置: 更新时间
+     *
+     */
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
 
     @Override
     public Serializable pkVal() {
@@ -224,10 +268,13 @@ public class ShopAddressEntity extends AbstractModel<ShopAddressEntity> {
     public void preInsert() {
         Sequence sequence = new Sequence(0, 0);
         this.id = sequence.nextId();
+        Date date = new Date();
+        this.createTime = date;
     }
     @Override
     public void preUpdate() {
-
+        Date date = new Date();
+        this.updateTime = date;
     }
     @JSONField(serialize = false)
     @Override

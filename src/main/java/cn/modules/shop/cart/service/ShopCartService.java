@@ -1,4 +1,5 @@
 package cn.modules.shop.cart.service;
+import cn.base.AbstractPureService;
 import cn.base.AbstractService;
 import com.baomidou.mybatisplus.mapper.SqlHelper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
@@ -17,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 */
 @Service
 @Transactional(readOnly = true,rollbackFor={RuntimeException.class})
-public class ShopCartService extends AbstractService<ShopCartDao,ShopCartEntity> {
+public class ShopCartService extends AbstractPureService<ShopCartDao,ShopCartEntity> {
 
     /**
     * <p>

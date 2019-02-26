@@ -35,19 +35,13 @@ public class ShopCollectEntity extends AbstractModel<ShopCollectEntity> {
     */
     @Excel(name = "用户Id")
     @TableField(value="user_id")
-    private Integer userId;
+    private Long userId;
     /**
     * 产品Id
     */
     @Excel(name = "产品Id")
     @TableField(value="value_id")
-    private Integer valueId;
-    /**
-    * 添加时间
-    */
-    @Excel(name = "添加时间",exportFormat = "yyyy-MM-dd HH:mm:ss")
-    @TableField(value="add_time")
-    private Date addTime;
+    private Long valueId;
     /**
     * 是否提醒
     */
@@ -55,11 +49,29 @@ public class ShopCollectEntity extends AbstractModel<ShopCollectEntity> {
     @TableField(value="is_attention")
     private Integer isAttention;
     /**
-    * TypeId
+     * 类型
+     */
+    @Excel(name = "类型")
+    @TableField(value="type")
+    private Integer type;
+    /**
+     * 添加时间
+     */
+    @Excel(name = "添加时间",exportFormat = "yyyy-MM-dd HH:mm:ss")
+    @TableField(value="create_time")
+    private Date createTime;
+    /**
+     * 更新时间
+     */
+    @Excel(name = "更新时间",exportFormat = "yyyy-MM-dd HH:mm:ss")
+    @TableField(value="update_time")
+    private Date updateTime;
+    /**
+    * 软删除
     */
-    @Excel(name = "TypeId")
-    @TableField(value="type_id")
-    private Integer typeId;
+    @Excel(name = "软删除")
+    @TableField(value="is_delete")
+    private Integer isDelete;
     /**
     * 获取: 主键
     */
@@ -76,27 +88,27 @@ public class ShopCollectEntity extends AbstractModel<ShopCollectEntity> {
     /**
     * 获取: 用户Id
     */
-    public Integer getUserId() {
+    public Long getUserId() {
         return userId;
     }
     /**
     * 设置: 用户Id
     * 
     */
-    public void setUserId(Integer userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
     /**
     * 获取: 产品Id
     */
-    public Integer getValueId() {
+    public Long getValueId() {
         return valueId;
     }
     /**
     * 设置: 产品Id
     * 
     */
-    public void setValueId(Integer valueId) {
+    public void setValueId(Long valueId) {
         this.valueId = valueId;
     }
     /**
@@ -104,15 +116,15 @@ public class ShopCollectEntity extends AbstractModel<ShopCollectEntity> {
     */
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @JSONField(format="yyyy-MM-dd HH:mm:ss")
-    public Date getAddTime() {
-        return addTime;
+    public Date getCreateTime() {
+        return createTime;
     }
     /**
     * 设置: 添加时间
     * 
     */
-    public void setAddTime(Date addTime) {
-        this.addTime = addTime;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
     /**
     * 获取: 是否提醒
@@ -128,17 +140,46 @@ public class ShopCollectEntity extends AbstractModel<ShopCollectEntity> {
         this.isAttention = isAttention;
     }
     /**
-    * 获取: TypeId
+    * 获取: Type
     */
-    public Integer getTypeId() {
-        return typeId;
+    public Integer getType() {
+        return type;
     }
     /**
-    * 设置: TypeId
+    * 设置: Type
     * 
     */
-    public void setTypeId(Integer typeId) {
-        this.typeId = typeId;
+    public void setType(Integer type) {
+        this.type = type;
+    }
+    /**
+     * 获取: 软删除
+     */
+    public Integer getIsDelete() {
+        return isDelete;
+    }
+    /**
+     * 设置: 软删除
+     *
+     */
+    public void setIsDelete(Integer isDelete) {
+        this.isDelete = isDelete;
+    }
+
+    /**
+     * 获取: 添加时间
+     */
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+    /**
+     * 设置: 添加时间
+     *
+     */
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 
     @Override
@@ -150,10 +191,13 @@ public class ShopCollectEntity extends AbstractModel<ShopCollectEntity> {
     public void preInsert() {
         Sequence sequence = new Sequence(0, 0);
         this.id = sequence.nextId();
+        Date date = new Date();
+        this.createTime = date;
     }
     @Override
     public void preUpdate() {
-
+        Date date = new Date();
+        this.updateTime = date;
     }
     @JSONField(serialize = false)
     @Override

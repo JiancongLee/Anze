@@ -16,6 +16,9 @@ import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+
+import javax.xml.crypto.Data;
+
 /**
 * 会员管理表 entity 对象实体类
 *
@@ -349,10 +352,14 @@ public class ShopMemberEntity extends AbstractModel<ShopMemberEntity> {
     public void preInsert() {
         Sequence sequence = new Sequence(0, 0);
         this.id = sequence.nextId();
+        Date date = new Date();
+        this.createTime = date;
+        this.registerTime = date;
     }
     @Override
     public void preUpdate() {
-
+        Date date = new Date();
+        this.updateTime = date;
     }
     @JSONField(serialize = false)
     @Override

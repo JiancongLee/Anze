@@ -4,10 +4,9 @@
 
     <resultMap id="BaseResultMap" type="cn.modules.shop.footprint.entity.ShopFootprintEntity">
         <result column="id" property="id" />
-        <result column="user_id" property="userId" />
+        <result column="member_id" property="memberId" />
         <result column="goods_id" property="goodsId" />
-        <result column="add_time" property="addTime" />
-        <result column="referrer" property="referrer" />
+        <result column="create_time" property="createTime" />
     </resultMap>
 
 
@@ -51,17 +50,14 @@
         <if test="e.id != null and e.id != '' ">
             AND t.ID = #{e.id}
         </if>
-        <if test="e.userId != null and e.userId != '' ">
-            AND t.USER_ID = #{e.userId}
+        <if test="e.memberId != null and e.memberId != '' ">
+            AND t.MEMBER_ID = #{e.memberId}
         </if>
         <if test="e.goodsId != null and e.goodsId != '' ">
             AND t.GOODS_ID = #{e.goodsId}
         </if>
-        <if test="e.addTime != null and e.addTime != '' ">
-            AND t.ADD_TIME = #{e.addTime}
-        </if>
-        <if test="e.referrer != null and e.referrer != '' ">
-            AND t.REFERRER = #{e.referrer}
+        <if test="e.createTime != null and e.createTime != '' ">
+            AND t.CREATE_TIME = #{e.createTime}
         </if>
     </sql>
 

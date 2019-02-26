@@ -6,9 +6,8 @@
         <result column="id" property="id" />
         <result column="user_id" property="userId" />
         <result column="value_id" property="valueId" />
-        <result column="add_time" property="addTime" />
+        <result column="add_time" property="createTime" />
         <result column="is_attention" property="isAttention" />
-        <result column="type_id" property="typeId" />
     </resultMap>
 
 
@@ -58,14 +57,11 @@
         <if test="e.valueId != null and e.valueId != '' ">
             AND t.VALUE_ID = #{e.valueId}
         </if>
-        <if test="e.addTime != null and e.addTime != '' ">
-            AND t.ADD_TIME = #{e.addTime}
+        <if test="e.createTime != null and e.createTime != '' ">
+            AND t.CREATE_TIME = #{e.createTime}
         </if>
         <if test="e.isAttention != null and e.isAttention != '' ">
             AND t.IS_ATTENTION = #{e.isAttention}
-        </if>
-        <if test="e.typeId != null and e.typeId != '' ">
-            AND t.TYPE_ID = #{e.typeId}
         </if>
     </sql>
 

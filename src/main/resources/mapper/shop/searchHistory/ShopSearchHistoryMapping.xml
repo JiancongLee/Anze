@@ -5,8 +5,7 @@
     <resultMap id="BaseResultMap" type="cn.modules.shop.searchHistory.entity.ShopSearchHistoryEntity">
         <result column="id" property="id" />
         <result column="keyword" property="keyword" />
-        <result column="from" property="from" />
-        <result column="add_time" property="addTime" />
+        <result column="create_time" property="createTime" />
         <result column="user_id" property="userId" />
     </resultMap>
 
@@ -54,11 +53,8 @@
         <if test="e.keyword != null and e.keyword != '' ">
             AND t.KEYWORD = #{e.keyword}
         </if>
-        <if test="e.from != null and e.from != '' ">
-            AND t.FROM = #{e.from}
-        </if>
-        <if test="e.addTime != null and e.addTime != '' ">
-            AND t.ADD_TIME = #{e.addTime}
+        <if test="e.createTime != null and e.createTime != '' ">
+            AND t.CREATE_TIME = #{e.createTime}
         </if>
         <if test="e.userId != null and e.userId != '' ">
             AND t.USER_ID = #{e.userId}

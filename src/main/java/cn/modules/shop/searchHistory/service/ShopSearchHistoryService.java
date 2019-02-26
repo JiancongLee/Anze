@@ -1,5 +1,5 @@
 package cn.modules.shop.searchHistory.service;
-import cn.base.AbstractService;
+import cn.base.AbstractPureService;
 import com.baomidou.mybatisplus.mapper.SqlHelper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.pagination.Pagination;
@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 */
 @Service
 @Transactional(readOnly = true,rollbackFor={RuntimeException.class})
-public class ShopSearchHistoryService extends AbstractService<ShopSearchHistoryDao,ShopSearchHistoryEntity> {
+public class ShopSearchHistoryService extends AbstractPureService<ShopSearchHistoryDao,ShopSearchHistoryEntity> {
 
     /**
     * <p>

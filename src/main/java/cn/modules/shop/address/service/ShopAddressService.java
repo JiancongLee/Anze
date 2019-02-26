@@ -1,5 +1,5 @@
 package cn.modules.shop.address.service;
-import cn.base.AbstractService;
+import cn.base.AbstractPureService;
 import com.baomidou.mybatisplus.mapper.SqlHelper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.pagination.Pagination;
@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 */
 @Service
 @Transactional(readOnly = true,rollbackFor={RuntimeException.class})
-public class ShopAddressService extends AbstractService<ShopAddressDao,ShopAddressEntity> {
+public class ShopAddressService extends AbstractPureService<ShopAddressDao,ShopAddressEntity> {
 
     /**
     * <p>

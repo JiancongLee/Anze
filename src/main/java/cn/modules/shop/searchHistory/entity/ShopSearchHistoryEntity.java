@@ -37,17 +37,11 @@ public class ShopSearchHistoryEntity extends AbstractModel<ShopSearchHistoryEnti
     @TableField(value="keyword")
     private String keyword;
     /**
-    * 搜索来源，如PC、小程序、APP等
-    */
-    @Excel(name = "搜索来源，如PC、小程序、APP等")
-    @TableField(value="from")
-    private String from;
-    /**
     * 搜索时间
     */
     @Excel(name = "搜索时间",exportFormat = "yyyy-MM-dd HH:mm:ss")
-    @TableField(value="add_time")
-    private Date addTime;
+    @TableField(value="create_time")
+    private Date createTime;
     /**
     * 会员Id
     */
@@ -81,32 +75,19 @@ public class ShopSearchHistoryEntity extends AbstractModel<ShopSearchHistoryEnti
         this.keyword = keyword;
     }
     /**
-    * 获取: 搜索来源，如PC、小程序、APP等
-    */
-    public String getFrom() {
-        return from;
-    }
-    /**
-    * 设置: 搜索来源，如PC、小程序、APP等
-    * 
-    */
-    public void setFrom(String from) {
-        this.from = from;
-    }
-    /**
     * 获取: 搜索时间
     */
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @JSONField(format="yyyy-MM-dd HH:mm:ss")
-    public Date getAddTime() {
-        return addTime;
+    public Date getCreateTime() {
+        return createTime;
     }
     /**
     * 设置: 搜索时间
     * 
     */
-    public void setAddTime(Date addTime) {
-        this.addTime = addTime;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
     /**
     * 获取: 会员Id
@@ -131,6 +112,8 @@ public class ShopSearchHistoryEntity extends AbstractModel<ShopSearchHistoryEnti
     public void preInsert() {
         Sequence sequence = new Sequence(0, 0);
         this.id = sequence.nextId();
+        Date date = new Date();
+        this.createTime = date;
     }
     @Override
     public void preUpdate() {

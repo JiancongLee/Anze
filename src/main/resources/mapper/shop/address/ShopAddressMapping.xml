@@ -4,15 +4,17 @@
 
     <resultMap id="BaseResultMap" type="cn.modules.shop.address.entity.ShopAddressEntity">
         <result column="id" property="id" />
-        <result column="user_id" property="userId" />
+        <result column="member_id" property="memberId" />
         <result column="user_name" property="userName" />
         <result column="tel_number" property="telNumber" />
         <result column="postal_Code" property="postalCode" />
-        <result column="national_Code" property="nationalCode" />
         <result column="province_Name" property="provinceName" />
         <result column="city_Name" property="cityName" />
         <result column="county_Name" property="countyName" />
         <result column="detail_Info" property="detailInfo" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="is_default" property="isDefault" />
     </resultMap>
 
 
@@ -56,8 +58,8 @@
         <if test="e.id != null and e.id != '' ">
             AND t.ID = #{e.id}
         </if>
-        <if test="e.userId != null and e.userId != '' ">
-            AND t.USER_ID = #{e.userId}
+        <if test="e.memberId != null and e.memberId != '' ">
+            AND t.MEMBER_ID = #{e.memberId}
         </if>
         <if test="e.userName != null and e.userName != '' ">
             AND t.USER_NAME = #{e.userName}
@@ -67,9 +69,6 @@
         </if>
         <if test="e.postalCode != null and e.postalCode != '' ">
             AND t.POSTAL_CODE = #{e.postalCode}
-        </if>
-        <if test="e.nationalCode != null and e.nationalCode != '' ">
-            AND t.NATIONAL_CODE = #{e.nationalCode}
         </if>
         <if test="e.provinceName != null and e.provinceName != '' ">
             AND t.PROVINCE_NAME = #{e.provinceName}
@@ -82,6 +81,15 @@
         </if>
         <if test="e.detailInfo != null and e.detailInfo != '' ">
             AND t.DETAIL_INFO = #{e.detailInfo}
+        </if>
+        <if test="e.isDefault != null and e.isDefault != '' ">
+            AND t.IS_DEFAULT = #{e.isDefault}
+        </if>
+        <if test="e.createTime != null and e.createTime != '' ">
+            AND t.CREATE_TIME = #{e.createTime}
+        </if>
+        <if test="e.updateTime != null and e.updateTime != '' ">
+            AND t.UPDATE_TIME = #{e.updateTime}
         </if>
     </sql>
 
