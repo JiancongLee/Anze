@@ -30,12 +30,18 @@ public class ShopAddressEntity extends AbstractModel<ShopAddressEntity> {
     @Excel(name = "主键")
     @TableId(value="id")
     private Long id;
+
     /**
     * 会员ID
     */
     @Excel(name = "会员ID")
     @TableField(value="member_id")
     private Long memberId;
+    /**
+     * 会员姓名
+     */
+    @TableField(exist=false)
+    private String memberName;
     /**
     * 收货人姓名
     */
@@ -55,11 +61,23 @@ public class ShopAddressEntity extends AbstractModel<ShopAddressEntity> {
     @TableField(value="postal_Code")
     private String postalCode;
     /**
+     * 省ID
+     */
+    @Excel(name = "省ID")
+    @TableField(value="province_id")
+    private Integer provinceId;
+    /**
     * 省
     */
     @Excel(name = "省")
     @TableField(value="province_Name")
     private String provinceName;
+    /**
+     * 市ID
+     */
+    @Excel(name = "市ID")
+    @TableField(value="city_id")
+    private Integer cityId;
     /**
     * 市
     */
@@ -67,8 +85,14 @@ public class ShopAddressEntity extends AbstractModel<ShopAddressEntity> {
     @TableField(value="city_Name")
     private String cityName;
     /**
-    * 区
+    * 区ID
     */
+    @Excel(name = "区ID")
+    @TableField(value="county_id")
+    private Integer countyId;
+    /**
+     * 区
+     */
     @Excel(name = "区")
     @TableField(value="county_Name")
     private String countyName;
@@ -118,6 +142,20 @@ public class ShopAddressEntity extends AbstractModel<ShopAddressEntity> {
         return memberId;
     }
     /**
+     * 设置: 会员姓名
+     *
+     */
+    public String getMemberName() {
+        return memberName;
+    }
+    /**
+     * 设置: 会员姓名
+     *
+     */
+    public void setMemberName(String memberName) {
+        this.memberName = memberName;
+    }
+    /**
     * 设置: 会员ID
     * 
     */
@@ -163,6 +201,31 @@ public class ShopAddressEntity extends AbstractModel<ShopAddressEntity> {
     public void setPostalCode(String postalCode) {
         this.postalCode = postalCode;
     }
+
+    public Integer getProvinceId() {
+        return provinceId;
+    }
+
+    public void setProvinceId(Integer provinceId) {
+        this.provinceId = provinceId;
+    }
+
+    public Integer getCityId() {
+        return cityId;
+    }
+
+    public void setCityId(Integer cityId) {
+        this.cityId = cityId;
+    }
+
+    public Integer getCountyId() {
+        return countyId;
+    }
+
+    public void setCountyId(Integer countyId) {
+        this.countyId = countyId;
+    }
+
     /**
     * 获取: 省
     */

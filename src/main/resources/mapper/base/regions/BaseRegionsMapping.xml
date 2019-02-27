@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.modules.base.regions.dao.BaseRegionsDao">
+
+    <resultMap id="BaseResultMap" type="cn.modules.base.regions.entity.BaseRegionsEntity">
+        <result column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="parent_id" property="parentId" />
+        <result column="short_name" property="shortName" />
+        <result column="level_type" property="levelType" />
+        <result column="city_code" property="cityCode" />
+        <result column="zip_code" property="zipCode" />
+        <result column="merger_name" property="mergerName" />
+        <result column="lng" property="lng" />
+        <result column="lat" property="lat" />
+        <result column="pinyin" property="pinyin" />
+    </resultMap>
+
+
+    <delete id="deleteByModel">
+        delete <if test="'${dbName}' == 'mysql'"> t </if> from BASE_REGIONS t
+        <where>
+            <include refid="select_content"/>
+        </where>
+    </delete>
+
+    <select id="selectCountByModel" resultType="int">
+        select count(1) from BASE_REGIONS t
+        <where>
+            <include refid="select_content"/>
+        </where>
+    </select>
+
+    <select id="selectListModel" resultMap="BaseResultMap">
+        select * from BASE_REGIONS t
+        <where>
+            <include refid="select_content"/>
+        </where>
+    </select>
+
+    <select id="selectPage" resultMap="BaseResultMap">
+        select * from BASE_REGIONS t
+        <where>
+            <include refid="select_content"/>
+             ${ew.sqlSegment}
+        </where>
+    </select>
+
+    <select id="queryPage" resultMap="BaseResultMap">
+        select * from BASE_REGIONS t
+        <where>
+            ${ew.sqlSegment}
+        </where>
+    </select>
+
+    <sql id="select_content">
+        <if test="e.id != null and e.id != '' ">
+            AND t.ID = #{e.id}
+        </if>
+        <if test="e.name != null and e.name != '' ">
+            AND t.NAME = #{e.name}
+        </if>
+        <if test="e.parentId != null and e.parentId != '' ">
+            AND t.PARENT_ID = #{e.parentId}
+        </if>
+        <if test="e.shortName != null and e.shortName != '' ">
+            AND t.SHORT_NAME = #{e.shortName}
+        </if>
+        <if test="e.levelType != null and e.levelType != '' ">
+            AND t.LEVEL_TYPE = #{e.levelType}
+        </if>
+        <if test="e.cityCode != null and e.cityCode != '' ">
+            AND t.CITY_CODE = #{e.cityCode}
+        </if>
+        <if test="e.zipCode != null and e.zipCode != '' ">
+            AND t.ZIP_CODE = #{e.zipCode}
+        </if>
+        <if test="e.mergerName != null and e.mergerName != '' ">
+            AND t.MERGER_NAME = #{e.mergerName}
+        </if>
+        <if test="e.lng != null and e.lng != '' ">
+            AND t.LNG = #{e.lng}
+        </if>
+        <if test="e.lat != null and e.lat != '' ">
+            AND t.LAT = #{e.lat}
+        </if>
+        <if test="e.pinyin != null and e.pinyin != '' ">
+            AND t.PINYIN = #{e.pinyin}
+        </if>
+    </sql>
+
+</mapper>

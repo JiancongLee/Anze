@@ -53,4 +53,10 @@ public interface ShopAddressDao extends BaseMapper<ShopAddressEntity>{
     * @return List<ShopAddressEntity> 所有符合条件数据
     */
     public  List<ShopAddressEntity> queryPage(@Param("p") Pagination pagination, @Param("ew") Wrapper<ShopAddressEntity> wrapper);
+    /**
+     *
+     * @param entity
+     * @return
+     */
+    public ShopAddressEntity selectInfo(@Param("e") ShopAddressEntity entity);
 }

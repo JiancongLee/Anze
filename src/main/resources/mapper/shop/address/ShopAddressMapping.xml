@@ -40,7 +40,7 @@
     </select>
 
     <select id="selectPage" resultMap="BaseResultMap">
-        select * from SHOP_ADDRESS t
+        select t.*,m.USERNAME as memberName from SHOP_ADDRESS t left join SHOP_MEMBER m on t.MEMBER_ID = m.ID
         <where>
             <include refid="select_content"/>
              ${ew.sqlSegment}
@@ -51,6 +51,13 @@
         select * from SHOP_ADDRESS t
         <where>
             ${ew.sqlSegment}
+        </where>
+    </select>
+
+    <select id="selectInfo" resultMap="BaseResultMap">
+        select t.*,m.USERNAME as memberName from SHOP_ADDRESS t left join SHOP_MEMBER m on t.MEMBER_ID = m.ID
+        <where>
+            <include refid="select_content"/>
         </where>
     </select>
 

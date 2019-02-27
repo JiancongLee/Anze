@@ -1,4 +1,4 @@
-package cn.modules.shop.address.controller;
+package cn.modules.base.regions.controller;
 import cn.afterturn.easypoi.excel.ExcelExportUtil;
 import static cn.hutool.core.date.DatePattern.PURE_DATETIME_PATTERN;
 import cn.afterturn.easypoi.excel.ExcelImportUtil;
@@ -16,8 +16,8 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.plugins.pagination.Pagination;
 import org.springframework.web.bind.annotation.*;
-import cn.modules.shop.address.entity.ShopAddressEntity;
-import cn.modules.shop.address.service.ShopAddressService;
+import cn.modules.base.regions.entity.BaseRegionsEntity;
+import cn.modules.base.regions.service.BaseRegionsService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
@@ -32,17 +32,17 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.web.multipart.MultipartFile;
 /**
-* 收货地址表控制器
+* 地区基础信息表控制器
 *
 * @author jianconglee
-* @date 2019-02-21 12:53:46
+* @date 2019-02-26 21:19:23
 */
 @RestController
-@RequestMapping("/shopaddress")
-public class ShopAddressController extends AbstractController {
+@RequestMapping("/baseregions")
+public class BaseRegionsController extends AbstractController {
 
     @Autowired
-    private ShopAddressService shopAddressService;
+    private BaseRegionsService baseRegionsService;
 
     /**
     * 获取分页信息
@@ -50,11 +50,9 @@ public class ShopAddressController extends AbstractController {
     * @return Object 分页信息
     */
     @GetMapping(value = "/list")
-    public Object list(ShopAddressEntity entity) {
-        Page<ShopAddressEntity> page = new PageFactory<ShopAddressEntity>().defaultPage();
-        page.setRecords(shopAddressService.selectPage(page,entity,new EntityWrapper<ShopAddressEntity>()));
-
-        return Result.ok().put("page", new PageUtils(page));
+    public Object list(BaseRegionsEntity entity) {
+        List<BaseRegionsEntity> list = baseRegionsService.selectList(entity);
+        return Result.ok().put("list", list);
     }
 
 
@@ -64,9 +62,9 @@ public class ShopAddressController extends AbstractController {
     * @return Object 执行结果
     */
     @PostMapping(value = "/add")
-    @RequiresPermissions("shopaddress:add")
-    public Object add(@RequestBody ShopAddressEntity entity) {
-        shopAddressService.insert(entity);
+    @RequiresPermissions("baseregions:add")
+    public Object add(@RequestBody BaseRegionsEntity entity) {
+        baseRegionsService.insert(entity);
         return Result.ok();
     }
 
@@ -76,9 +74,9 @@ public class ShopAddressController extends AbstractController {
     * @return Object 执行结果
     */
     @PostMapping(value = "/delete")
-    @RequiresPermissions("shopaddress:delete")
-    public Object delete(@RequestBody Long[] ids) {
-        shopAddressService.deleteBatchIds(Arrays.asList(ids));
+    @RequiresPermissions("baseregions:delete")
+    public Object delete(@RequestBody Integer[] ids) {
+        baseRegionsService.deleteBatchIds(Arrays.asList(ids));
         return Result.ok();
     }
 
@@ -88,8 +86,8 @@ public class ShopAddressController extends AbstractController {
     * @return
     */
     @PostMapping(value = "/update")
-    public Object update(@RequestBody ShopAddressEntity entity) {
-        shopAddressService.updateById(entity);
+    public Object update(@RequestBody BaseRegionsEntity entity) {
+        baseRegionsService.updateById(entity);
         return Result.ok();
     }
 
@@ -99,10 +97,8 @@ public class ShopAddressController extends AbstractController {
     * @return Object 详细对象
     */
     @GetMapping(value = "/info")
-    public Object info(ShopAddressEntity entity) {
-
-        ShopAddressEntity data = shopAddressService.selectInfo(entity);
-        return Result.ok().put("shopaddress", data);
+    public Object info(BaseRegionsEntity entity) {
+        return Result.ok().put("baseregions", baseRegionsService.selectOne(entity));
     }
 
     /**
@@ -124,8 +120,8 @@ public class ShopAddressController extends AbstractController {
             /* params.setVerifyHandler(new ExcelVerifyHandlerImpl());
             * 自定义的验证
             * */
-            ExcelImportResult<ShopAddressEntity> result = ExcelImportUtil.importExcelMore(
-                    inputStream,ShopAddressEntity.class, params);
+            ExcelImportResult<BaseRegionsEntity> result = ExcelImportUtil.importExcelMore(
+                    inputStream,BaseRegionsEntity.class, params);
             if (result.isVerfiyFail()){
                 StringBuffer buffer = new StringBuffer();
                 for (int i = 0; i < result.getFailList().size(); i++) {
@@ -136,7 +132,7 @@ public class ShopAddressController extends AbstractController {
                 model = AttachUtils.saveTmpFile(result.getFailWorkbook(),fileName);
             } else{
                 //	成功的时候
-                shopAddressService.insertBatch(result.getList());
+                baseRegionsService.insertBatch(result.getList());
             }
         }  catch (Exception e) {
             e.printStackTrace();
@@ -154,27 +150,27 @@ public class ShopAddressController extends AbstractController {
     * @param entity 对象
     */
     @GetMapping(value="/export")
-    public void export(HttpServletRequest request, HttpServletResponse response,ShopAddressEntity entity){
+    public void export(HttpServletRequest request, HttpServletResponse response,BaseRegionsEntity entity){
 
         try {
-            int importNum  = shopAddressService.selectCount(entity);
+            int importNum  = baseRegionsService.selectCount(entity);
             Workbook workbook = null;
             //第一个是导出的接口
             ExportParams exportParams = new ExportParams();
             if (importNum > EXPORT_MAX){
                 for (int i = 0; i < importNum/EXPORT_MAX + 1; i++) {
-                    Page<ShopAddressEntity> page = new Page<ShopAddressEntity>(i+1, EXPORT_MAX);
-                    List<ShopAddressEntity> result = shopAddressService.selectPage(page,entity,new EntityWrapper<ShopAddressEntity>());
-                    workbook = ExcelExportUtil.exportBigExcel(exportParams, ShopAddressEntity.class,result);
+                    Page<BaseRegionsEntity> page = new Page<BaseRegionsEntity>(i+1, EXPORT_MAX);
+                    List<BaseRegionsEntity> result = baseRegionsService.selectPage(page,entity,new EntityWrapper<BaseRegionsEntity>());
+                    workbook = ExcelExportUtil.exportBigExcel(exportParams, BaseRegionsEntity.class,result);
                     result.clear();
                 }
                 ExcelExportUtil.closeExportBigExcel();
             }else {
-                Page<ShopAddressEntity> page = new Page<ShopAddressEntity>(1, EXPORT_MAX);
-                List<ShopAddressEntity> result = shopAddressService.selectPage(page,entity,new EntityWrapper<>());
-                workbook = ExcelExportUtil.exportExcel(exportParams,ShopAddressEntity.class, result);
+                Page<BaseRegionsEntity> page = new Page<BaseRegionsEntity>(1, EXPORT_MAX);
+                List<BaseRegionsEntity> result = baseRegionsService.selectPage(page,entity,new EntityWrapper<>());
+                workbook = ExcelExportUtil.exportExcel(exportParams,BaseRegionsEntity.class, result);
                 }
-                String filename = "收货地址表("+DateUtil.today()+")";
+                String filename = "地区基础信息表("+DateUtil.today()+")";
                 renderExcel(request,response,filename,workbook);
         } catch (Exception e) {
                 e.printStackTrace();

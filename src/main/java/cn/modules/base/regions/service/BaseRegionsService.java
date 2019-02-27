@@ -1,23 +1,23 @@
-package cn.modules.shop.address.service;
+package cn.modules.base.regions.service;
 import cn.base.AbstractPureService;
 import com.baomidou.mybatisplus.mapper.SqlHelper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.pagination.Pagination;
-import cn.modules.shop.address.entity.ShopAddressEntity;
-import cn.modules.shop.address.dao.ShopAddressDao;
+import cn.modules.base.regions.entity.BaseRegionsEntity;
+import cn.modules.base.regions.dao.BaseRegionsDao;
 import java.util.List;
 import java.util.Map;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 /**
-* 收货地址表Service  业务接口
+* 地区基础信息表Service  业务接口
 *
 * @author jianconglee
-* @date 2019-02-21 12:53:46
+* @date 2019-02-26 21:19:23
 */
 @Service
 @Transactional(readOnly = true,rollbackFor={RuntimeException.class})
-public class ShopAddressService extends AbstractPureService<ShopAddressDao,ShopAddressEntity> {
+public class BaseRegionsService extends AbstractPureService<BaseRegionsDao,BaseRegionsEntity> {
 
     /**
     * <p>
@@ -27,7 +27,7 @@ public class ShopAddressService extends AbstractPureService<ShopAddressDao,ShopA
     * @param model 实体对象
     * @return int
     */
-    public Integer selectCount(ShopAddressEntity model){
+    public Integer selectCount(BaseRegionsEntity model){
         return dao.selectCountByModel(model);
     }
 
@@ -38,7 +38,7 @@ public class ShopAddressService extends AbstractPureService<ShopAddressDao,ShopA
     * @return boolean
     */
     @Transactional(rollbackFor={RuntimeException.class})
-    public boolean deleteByModel(ShopAddressEntity model){
+    public boolean deleteByModel(BaseRegionsEntity model){
         return SqlHelper.delBool(dao.deleteByModel(model));
     }
 
@@ -48,9 +48,9 @@ public class ShopAddressService extends AbstractPureService<ShopAddressDao,ShopA
     * </p>
     *
     * @param model 实体对象封装操作类（可以为 null）
-    * @return List<ShopAddressEntity>
+    * @return List<BaseRegionsEntity>
     */
-    public List<ShopAddressEntity> selectList(ShopAddressEntity model){
+    public List<BaseRegionsEntity> selectList(BaseRegionsEntity model){
         return dao.selectListModel(model);
     }
     /**
@@ -61,9 +61,9 @@ public class ShopAddressService extends AbstractPureService<ShopAddressDao,ShopA
     * @param pagination 分页查询条件
     * @param model   实体对象封装操作可以为 null）
     * @param wrapper   SQL包装
-    * @return List<ShopAddressEntity>
+    * @return List<BaseRegionsEntity>
     */
-    public List<ShopAddressEntity> selectPage(Pagination pagination, ShopAddressEntity model,Wrapper<ShopAddressEntity> wrapper){
+    public List<BaseRegionsEntity> selectPage(Pagination pagination, BaseRegionsEntity model,Wrapper<BaseRegionsEntity> wrapper){
         return dao.selectPage(pagination,model,wrapper);
 
     }
@@ -73,17 +73,10 @@ public class ShopAddressService extends AbstractPureService<ShopAddressDao,ShopA
     *
     * @param pagination 分页查询条件
     * @param wrapper   SQL包装
-    * @return List<ShopAddressEntity>
+    * @return List<BaseRegionsEntity>
     */
-    public List<ShopAddressEntity> selectPage(Pagination pagination,Wrapper<ShopAddressEntity> wrapper){
+    public List<BaseRegionsEntity> selectPage(Pagination pagination,Wrapper<BaseRegionsEntity> wrapper){
         return dao.queryPage(pagination,wrapper);
-    }
-
-    /**
-     * 根据 entity 条件
-     */
-    public ShopAddressEntity selectInfo(ShopAddressEntity model){
-        return dao.selectInfo(model);
     }
 
 }
