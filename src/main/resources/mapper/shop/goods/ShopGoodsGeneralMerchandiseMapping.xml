@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.modules.shop.goods.dao.ShopGoodsGeneralMerchandiseDao">
+
+    <resultMap id="BaseResultMap" type="cn.modules.shop.goods.entity.ShopGoodsGeneralMerchandiseEntity">
+        <result column="id" property="id" />
+        <result column="size" property="size" />
+        <result column="color" property="color" />
+        <result column="type" property="type" />
+        <result column="amount" property="amount" />
+        <result column="style" property="style" />
+    </resultMap>
+
+
+    <delete id="deleteByModel">
+        delete <if test="'${dbName}' == 'mysql'"> t </if> from SHOP_GOODS_GENERAL_MERCHANDISE t
+        <where>
+            <include refid="select_content"/>
+        </where>
+    </delete>
+
+    <select id="selectCountByModel" resultType="int">
+        select count(1) from SHOP_GOODS_GENERAL_MERCHANDISE t
+        <where>
+            <include refid="select_content"/>
+        </where>
+    </select>
+
+    <select id="selectListModel" resultMap="BaseResultMap">
+        select * from SHOP_GOODS_GENERAL_MERCHANDISE t
+        <where>
+            <include refid="select_content"/>
+        </where>
+    </select>
+
+    <select id="selectPage" resultMap="BaseResultMap">
+        select * from SHOP_GOODS_GENERAL_MERCHANDISE t
+        <where>
+            <include refid="select_content"/>
+             ${ew.sqlSegment}
+        </where>
+    </select>
+
+    <select id="queryPage" resultMap="BaseResultMap">
+        select * from SHOP_GOODS_GENERAL_MERCHANDISE t
+        <where>
+            ${ew.sqlSegment}
+        </where>
+    </select>
+
+    <sql id="select_content">
+        <if test="e.id != null and e.id != '' ">
+            AND t.ID = #{e.id}
+        </if>
+        <if test="e.size != null and e.size != '' ">
+            AND t.SIZE = #{e.size}
+        </if>
+        <if test="e.color != null and e.color != '' ">
+            AND t.COLOR = #{e.color}
+        </if>
+        <if test="e.type != null and e.type != '' ">
+            AND t.TYPE = #{e.type}
+        </if>
+        <if test="e.amount != null and e.amount != '' ">
+            AND t.AMOUNT = #{e.amount}
+        </if>
+        <if test="e.style != null and e.style != '' ">
+            AND t.STYLE = #{e.style}
+        </if>
+    </sql>
+
+</mapper>

@@ -16,20 +16,20 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 /**
-* 商品表 entity 对象实体类
+* VIEW entity 对象实体类
 *
 * @author jianconglee
-* @Date 2019-02-28 22:40:27
+* @Date 2019-03-01 00:07:22
 */
-@TableName("shop_goods")
-public class ShopGoodsEntity extends AbstractModel<ShopGoodsEntity> {
+@TableName("view_shop_goods")
+public class ViewShopGoodsEntity extends AbstractModel<ViewShopGoodsEntity> {
     private static final long serialVersionUID = 1L;
     /**
     * 主键
     */
     @Excel(name = "主键")
-    @TableId(value ="id",type = IdType.ID_WORKER)
-    private Long id;
+    @TableField(value="id")
+    private Integer id;
     /**
     * 商品名称
     */
@@ -41,13 +41,13 @@ public class ShopGoodsEntity extends AbstractModel<ShopGoodsEntity> {
     */
     @Excel(name = "品牌id")
     @TableField(value="brand_id")
-    private Long brandId;
+    private Integer brandId;
     /**
     * 商品类别ID
     */
     @Excel(name = "商品类别ID")
     @TableField(value="category_id")
-    private Long categoryId;
+    private Integer categoryId;
     /**
     * 序列号
     */
@@ -78,12 +78,6 @@ public class ShopGoodsEntity extends AbstractModel<ShopGoodsEntity> {
     @Excel(name = "商品简介")
     @TableField(value="goods_brief")
     private String goodsBrief;
-    /**
-    * 商品详细介绍
-    */
-    @Excel(name = "商品详细介绍")
-    @TableField(value="goods_desc")
-    private String goodsDesc;
     /**
     * SortOrder
     */
@@ -157,16 +151,88 @@ public class ShopGoodsEntity extends AbstractModel<ShopGoodsEntity> {
     @TableField(value="update_time")
     private Date updateTime;
     /**
+    * 净含量
+    */
+    @Excel(name = "净含量")
+    @TableField(value="net_weight")
+    private String netWeight;
+    /**
+    * 包装方式
+    */
+    @Excel(name = "包装方式")
+    @TableField(value="packaging_method")
+    private String packagingMethod;
+    /**
+    * 保质期
+    */
+    @Excel(name = "保质期")
+    @TableField(value="quality_guarantee_period")
+    private String qualityGuaranteePeriod;
+    /**
+    * 系列
+    */
+    @Excel(name = "系列")
+    @TableField(value="series")
+    private String series;
+    /**
+    * 存储方法
+    */
+    @Excel(name = "存储方法")
+    @TableField(value="storage_method")
+    private String storageMethod;
+    /**
+    * 尺码
+    */
+    @Excel(name = "尺码")
+    @TableField(value="size")
+    private String size;
+    /**
+    * 颜色分类
+    */
+    @Excel(name = "颜色分类")
+    @TableField(value="color")
+    private String color;
+    /**
+    * 类型
+    */
+    @Excel(name = "类型")
+    @TableField(value="type")
+    private String type;
+    /**
+    * 数量
+    */
+    @Excel(name = "数量")
+    @TableField(value="amount")
+    private String amount;
+    /**
+    * 款式
+    */
+    @Excel(name = "款式")
+    @TableField(value="style")
+    private String style;
+    /**
+    * 型号
+    */
+    @Excel(name = "型号")
+    @TableField(value="model")
+    private String model;
+    /**
+    * 保修期
+    */
+    @Excel(name = "保修期")
+    @TableField(value="defects_liability_period")
+    private String defectsLiabilityPeriod;
+    /**
     * 获取: 主键
     */
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
     /**
     * 设置: 主键
     * 
     */
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
     /**
@@ -185,27 +251,27 @@ public class ShopGoodsEntity extends AbstractModel<ShopGoodsEntity> {
     /**
     * 获取: 品牌id
     */
-    public Long getBrandId() {
+    public Integer getBrandId() {
         return brandId;
     }
     /**
     * 设置: 品牌id
     * 
     */
-    public void setBrandId(Long brandId) {
+    public void setBrandId(Integer brandId) {
         this.brandId = brandId;
     }
     /**
     * 获取: 商品类别ID
     */
-    public Long getCategoryId() {
+    public Integer getCategoryId() {
         return categoryId;
     }
     /**
     * 设置: 商品类别ID
     * 
     */
-    public void setCategoryId(Long categoryId) {
+    public void setCategoryId(Integer categoryId) {
         this.categoryId = categoryId;
     }
     /**
@@ -272,19 +338,6 @@ public class ShopGoodsEntity extends AbstractModel<ShopGoodsEntity> {
     */
     public void setGoodsBrief(String goodsBrief) {
         this.goodsBrief = goodsBrief;
-    }
-    /**
-    * 获取: 商品详细介绍
-    */
-    public String getGoodsDesc() {
-        return goodsDesc;
-    }
-    /**
-    * 设置: 商品详细介绍
-    * 
-    */
-    public void setGoodsDesc(String goodsDesc) {
-        this.goodsDesc = goodsDesc;
     }
     /**
     * 获取: SortOrder
@@ -446,6 +499,162 @@ public class ShopGoodsEntity extends AbstractModel<ShopGoodsEntity> {
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }
+    /**
+    * 获取: 净含量
+    */
+    public String getNetWeight() {
+        return netWeight;
+    }
+    /**
+    * 设置: 净含量
+    * 
+    */
+    public void setNetWeight(String netWeight) {
+        this.netWeight = netWeight;
+    }
+    /**
+    * 获取: 包装方式
+    */
+    public String getPackagingMethod() {
+        return packagingMethod;
+    }
+    /**
+    * 设置: 包装方式
+    * 
+    */
+    public void setPackagingMethod(String packagingMethod) {
+        this.packagingMethod = packagingMethod;
+    }
+    /**
+    * 获取: 保质期
+    */
+    public String getQualityGuaranteePeriod() {
+        return qualityGuaranteePeriod;
+    }
+    /**
+    * 设置: 保质期
+    * 
+    */
+    public void setQualityGuaranteePeriod(String qualityGuaranteePeriod) {
+        this.qualityGuaranteePeriod = qualityGuaranteePeriod;
+    }
+    /**
+    * 获取: 系列
+    */
+    public String getSeries() {
+        return series;
+    }
+    /**
+    * 设置: 系列
+    * 
+    */
+    public void setSeries(String series) {
+        this.series = series;
+    }
+    /**
+    * 获取: 存储方法
+    */
+    public String getStorageMethod() {
+        return storageMethod;
+    }
+    /**
+    * 设置: 存储方法
+    * 
+    */
+    public void setStorageMethod(String storageMethod) {
+        this.storageMethod = storageMethod;
+    }
+    /**
+    * 获取: 尺码
+    */
+    public String getSize() {
+        return size;
+    }
+    /**
+    * 设置: 尺码
+    * 
+    */
+    public void setSize(String size) {
+        this.size = size;
+    }
+    /**
+    * 获取: 颜色分类
+    */
+    public String getColor() {
+        return color;
+    }
+    /**
+    * 设置: 颜色分类
+    * 
+    */
+    public void setColor(String color) {
+        this.color = color;
+    }
+    /**
+    * 获取: 类型
+    */
+    public String getType() {
+        return type;
+    }
+    /**
+    * 设置: 类型
+    * 
+    */
+    public void setType(String type) {
+        this.type = type;
+    }
+    /**
+    * 获取: 数量
+    */
+    public String getAmount() {
+        return amount;
+    }
+    /**
+    * 设置: 数量
+    * 
+    */
+    public void setAmount(String amount) {
+        this.amount = amount;
+    }
+    /**
+    * 获取: 款式
+    */
+    public String getStyle() {
+        return style;
+    }
+    /**
+    * 设置: 款式
+    * 
+    */
+    public void setStyle(String style) {
+        this.style = style;
+    }
+    /**
+    * 获取: 型号
+    */
+    public String getModel() {
+        return model;
+    }
+    /**
+    * 设置: 型号
+    * 
+    */
+    public void setModel(String model) {
+        this.model = model;
+    }
+    /**
+    * 获取: 保修期
+    */
+    public String getDefectsLiabilityPeriod() {
+        return defectsLiabilityPeriod;
+    }
+    /**
+    * 设置: 保修期
+    * 
+    */
+    public void setDefectsLiabilityPeriod(String defectsLiabilityPeriod) {
+        this.defectsLiabilityPeriod = defectsLiabilityPeriod;
+    }
 
     @Override
     public Serializable pkVal() {
@@ -454,8 +663,6 @@ public class ShopGoodsEntity extends AbstractModel<ShopGoodsEntity> {
 
     @Override
     public void preInsert() {
-        Sequence sequence = new Sequence(0, 0);
-        this.id = sequence.nextId();
     }
     @Override
     public void preUpdate() {
@@ -464,9 +671,10 @@ public class ShopGoodsEntity extends AbstractModel<ShopGoodsEntity> {
     @JSONField(serialize = false)
     @Override
     public boolean getIsNewRecord() {
-        return isNewRecord || getId() == null;
-
+        return false;
     }
+
+
     @Override
     public String toString() {
         return ReflectionToStringBuilder.toString(this);

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.modules.shop.goods.dao.ShopGoodsDao">
+<mapper namespace="cn.modules.shop.goods.dao.ViewShopGoodsDao">
 
-    <resultMap id="BaseResultMap" type="cn.modules.shop.goods.entity.ShopGoodsEntity">
+    <resultMap id="BaseResultMap" type="cn.modules.shop.goods.entity.ViewShopGoodsEntity">
         <result column="id" property="id" />
         <result column="name" property="name" />
         <result column="brand_id" property="brandId" />
@@ -12,7 +12,6 @@
         <result column="counter_price" property="counterPrice" />
         <result column="price" property="price" />
         <result column="goods_brief" property="goodsBrief" />
-        <result column="goods_desc" property="goodsDesc" />
         <result column="sort_order" property="sortOrder" />
         <result column="goods_unit" property="goodsUnit" />
         <result column="primary_pic_url" property="primaryPicUrl" />
@@ -25,32 +24,44 @@
         <result column="create_time" property="createTime" />
         <result column="update_user_id" property="updateUserId" />
         <result column="update_time" property="updateTime" />
+        <result column="net_weight" property="netWeight" />
+        <result column="packaging_method" property="packagingMethod" />
+        <result column="quality_guarantee_period" property="qualityGuaranteePeriod" />
+        <result column="series" property="series" />
+        <result column="storage_method" property="storageMethod" />
+        <result column="size" property="size" />
+        <result column="color" property="color" />
+        <result column="type" property="type" />
+        <result column="amount" property="amount" />
+        <result column="style" property="style" />
+        <result column="model" property="model" />
+        <result column="defects_liability_period" property="defectsLiabilityPeriod" />
     </resultMap>
 
 
     <delete id="deleteByModel">
-        delete <if test="'${dbName}' == 'mysql'"> t </if> from SHOP_GOODS t
+        delete <if test="'${dbName}' == 'mysql'"> t </if> from VIEW_SHOP_GOODS t
         <where>
             <include refid="select_content"/>
         </where>
     </delete>
 
     <select id="selectCountByModel" resultType="int">
-        select count(1) from SHOP_GOODS t
+        select count(1) from VIEW_SHOP_GOODS t
         <where>
             <include refid="select_content"/>
         </where>
     </select>
 
     <select id="selectListModel" resultMap="BaseResultMap">
-        select * from SHOP_GOODS t
+        select * from VIEW_SHOP_GOODS t
         <where>
             <include refid="select_content"/>
         </where>
     </select>
 
     <select id="selectPage" resultMap="BaseResultMap">
-        select * from SHOP_GOODS t
+        select * from VIEW_SHOP_GOODS t
         <where>
             <include refid="select_content"/>
              ${ew.sqlSegment}
@@ -58,7 +69,7 @@
     </select>
 
     <select id="queryPage" resultMap="BaseResultMap">
-        select * from SHOP_GOODS t
+        select * from VIEW_SHOP_GOODS t
         <where>
             ${ew.sqlSegment}
         </where>
@@ -91,9 +102,6 @@
         </if>
         <if test="e.goodsBrief != null and e.goodsBrief != '' ">
             AND t.GOODS_BRIEF = #{e.goodsBrief}
-        </if>
-        <if test="e.goodsDesc != null and e.goodsDesc != '' ">
-            AND t.GOODS_DESC = #{e.goodsDesc}
         </if>
         <if test="e.sortOrder != null and e.sortOrder != '' ">
             AND t.SORT_ORDER = #{e.sortOrder}
@@ -130,6 +138,42 @@
         </if>
         <if test="e.updateTime != null and e.updateTime != '' ">
             AND t.UPDATE_TIME = #{e.updateTime}
+        </if>
+        <if test="e.netWeight != null and e.netWeight != '' ">
+            AND t.NET_WEIGHT = #{e.netWeight}
+        </if>
+        <if test="e.packagingMethod != null and e.packagingMethod != '' ">
+            AND t.PACKAGING_METHOD = #{e.packagingMethod}
+        </if>
+        <if test="e.qualityGuaranteePeriod != null and e.qualityGuaranteePeriod != '' ">
+            AND t.QUALITY_GUARANTEE_PERIOD = #{e.qualityGuaranteePeriod}
+        </if>
+        <if test="e.series != null and e.series != '' ">
+            AND t.SERIES = #{e.series}
+        </if>
+        <if test="e.storageMethod != null and e.storageMethod != '' ">
+            AND t.STORAGE_METHOD = #{e.storageMethod}
+        </if>
+        <if test="e.size != null and e.size != '' ">
+            AND t.SIZE = #{e.size}
+        </if>
+        <if test="e.color != null and e.color != '' ">
+            AND t.COLOR = #{e.color}
+        </if>
+        <if test="e.type != null and e.type != '' ">
+            AND t.TYPE = #{e.type}
+        </if>
+        <if test="e.amount != null and e.amount != '' ">
+            AND t.AMOUNT = #{e.amount}
+        </if>
+        <if test="e.style != null and e.style != '' ">
+            AND t.STYLE = #{e.style}
+        </if>
+        <if test="e.model != null and e.model != '' ">
+            AND t.MODEL = #{e.model}
+        </if>
+        <if test="e.defectsLiabilityPeriod != null and e.defectsLiabilityPeriod != '' ">
+            AND t.DEFECTS_LIABILITY_PERIOD = #{e.defectsLiabilityPeriod}
         </if>
     </sql>
 
