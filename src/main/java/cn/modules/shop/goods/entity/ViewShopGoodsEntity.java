@@ -37,6 +37,12 @@ public class ViewShopGoodsEntity extends AbstractModel<ViewShopGoodsEntity> {
     @TableField(value="name")
     private String name;
     /**
+     * 种类
+     */
+    @Excel(name = "种类")
+    @TableField(value="kind")
+    private Integer kind;
+    /**
     * 品牌id
     */
     @Excel(name = "品牌id")
@@ -247,6 +253,19 @@ public class ViewShopGoodsEntity extends AbstractModel<ViewShopGoodsEntity> {
     */
     public void setName(String name) {
         this.name = name;
+    }
+    /**
+     * 获取: 种类
+     */
+    public Integer getKind() {
+        return kind;
+    }
+    /**
+     * 设置: 种类
+     *
+     */
+    public void setKind(Integer kind) {
+        this.kind = kind;
     }
     /**
     * 获取: 品牌id
