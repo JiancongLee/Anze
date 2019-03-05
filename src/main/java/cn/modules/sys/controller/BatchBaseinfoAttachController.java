@@ -11,6 +11,7 @@ import cn.common.utils.PageUtils;
 import cn.common.utils.Result;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.io.FileUtil;
+import cn.modules.base.annex.entity.BaseAnnexEntity;
 import cn.modules.sys.entity.BatchBaseinfoAttachEntity;
 import cn.modules.sys.service.BatchBaseinfoAttachService;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
@@ -111,7 +112,8 @@ public class BatchBaseinfoAttachController extends AbstractController {
         if (file.isEmpty()) {
             throw new DefaultException("上传文件不能为空");
         }
-        BatchBaseinfoAttachEntity entity = AttachUtils.saveTmpFile(file);
+        BaseAnnexEntity entity = AttachUtils.saveTmpFile(file);
+//        BatchBaseinfoAttachEntity entity = AttachUtils.saveTmpFile(file);
         return Result.ok().put("batch",entity);
     }
 
@@ -124,10 +126,12 @@ public class BatchBaseinfoAttachController extends AbstractController {
     @PostMapping("/multiupload")
     public Result Multi(@RequestParam("file") MultipartFile[] file) throws Exception {
 
-        List<BatchBaseinfoAttachEntity> entities = Lists.newArrayList();
+        List<BaseAnnexEntity> entities = Lists.newArrayList();
+//        List<BatchBaseinfoAttachEntity> entities = Lists.newArrayList();
         if (file.length > 0){
             for (MultipartFile multipartFile : file) {
-                BatchBaseinfoAttachEntity entity = AttachUtils.saveTmpFile(multipartFile);
+                BaseAnnexEntity entity = AttachUtils.saveTmpFile(multipartFile);
+//                BatchBaseinfoAttachEntity entity = AttachUtils.saveTmpFile(multipartFile);
                 entities.add(entity);
             }
         }

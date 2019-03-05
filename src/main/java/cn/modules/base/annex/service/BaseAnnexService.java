@@ -1,24 +1,23 @@
-package cn.modules.shop.goods.service;
+package cn.modules.base.annex.service;
 import cn.base.AbstractPureService;
-import cn.base.AbstractService;
 import com.baomidou.mybatisplus.mapper.SqlHelper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.pagination.Pagination;
-import cn.modules.shop.goods.entity.ShopGoodsEntity;
-import cn.modules.shop.goods.dao.ShopGoodsDao;
+import cn.modules.base.annex.entity.BaseAnnexEntity;
+import cn.modules.base.annex.dao.BaseAnnexDao;
 import java.util.List;
 import java.util.Map;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 /**
-* 商品表Service  业务接口
+* 附件表Service  业务接口
 *
 * @author jianconglee
-* @date 2019-02-21 23:00:48
+* @date 2019-03-04 12:55:36
 */
 @Service
 @Transactional(readOnly = true,rollbackFor={RuntimeException.class})
-public class ShopGoodsService extends AbstractPureService<ShopGoodsDao,ShopGoodsEntity> {
+public class BaseAnnexService extends AbstractPureService<BaseAnnexDao,BaseAnnexEntity> {
 
     /**
     * <p>
@@ -28,7 +27,7 @@ public class ShopGoodsService extends AbstractPureService<ShopGoodsDao,ShopGoods
     * @param model 实体对象
     * @return int
     */
-    public Integer selectCount(ShopGoodsEntity model){
+    public Integer selectCount(BaseAnnexEntity model){
         return dao.selectCountByModel(model);
     }
 
@@ -39,7 +38,7 @@ public class ShopGoodsService extends AbstractPureService<ShopGoodsDao,ShopGoods
     * @return boolean
     */
     @Transactional(rollbackFor={RuntimeException.class})
-    public boolean deleteByModel(ShopGoodsEntity model){
+    public boolean deleteByModel(BaseAnnexEntity model){
         return SqlHelper.delBool(dao.deleteByModel(model));
     }
 
@@ -49,9 +48,9 @@ public class ShopGoodsService extends AbstractPureService<ShopGoodsDao,ShopGoods
     * </p>
     *
     * @param model 实体对象封装操作类（可以为 null）
-    * @return List<ShopGoodsEntity>
+    * @return List<BaseAnnexEntity>
     */
-    public List<ShopGoodsEntity> selectList(ShopGoodsEntity model){
+    public List<BaseAnnexEntity> selectList(BaseAnnexEntity model){
         return dao.selectListModel(model);
     }
     /**
@@ -62,9 +61,9 @@ public class ShopGoodsService extends AbstractPureService<ShopGoodsDao,ShopGoods
     * @param pagination 分页查询条件
     * @param model   实体对象封装操作可以为 null）
     * @param wrapper   SQL包装
-    * @return List<ShopGoodsEntity>
+    * @return List<BaseAnnexEntity>
     */
-    public List<ShopGoodsEntity> selectPage(Pagination pagination, ShopGoodsEntity model,Wrapper<ShopGoodsEntity> wrapper){
+    public List<BaseAnnexEntity> selectPage(Pagination pagination, BaseAnnexEntity model,Wrapper<BaseAnnexEntity> wrapper){
         return dao.selectPage(pagination,model,wrapper);
 
     }
@@ -74,9 +73,9 @@ public class ShopGoodsService extends AbstractPureService<ShopGoodsDao,ShopGoods
     *
     * @param pagination 分页查询条件
     * @param wrapper   SQL包装
-    * @return List<ShopGoodsEntity>
+    * @return List<BaseAnnexEntity>
     */
-    public List<ShopGoodsEntity> selectPage(Pagination pagination,Wrapper<ShopGoodsEntity> wrapper){
+    public List<BaseAnnexEntity> selectPage(Pagination pagination,Wrapper<BaseAnnexEntity> wrapper){
         return dao.queryPage(pagination,wrapper);
     }
 

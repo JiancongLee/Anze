@@ -11,6 +11,7 @@ import cn.common.utils.AttachUtils;
 import cn.common.utils.PageUtils;
 import cn.common.utils.Result;
 import cn.hutool.core.date.DateUtil;
+import cn.modules.base.annex.entity.BaseAnnexEntity;
 import cn.modules.sys.entity.BatchBaseinfoAttachEntity;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
@@ -115,7 +116,7 @@ public class ShopAddressController extends AbstractController {
     public Object  importFile(@RequestParam("file")MultipartFile file){
 
         boolean flag = true;
-        BatchBaseinfoAttachEntity model = new BatchBaseinfoAttachEntity();
+        BaseAnnexEntity model = new BaseAnnexEntity();
         try {
             InputStream inputStream = file.getInputStream();
             ImportParams params = new ImportParams();

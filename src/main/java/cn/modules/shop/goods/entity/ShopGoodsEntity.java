@@ -475,10 +475,13 @@ public class ShopGoodsEntity extends AbstractModel<ShopGoodsEntity> {
     public void preInsert() {
         Sequence sequence = new Sequence(0, 0);
         this.id = sequence.nextId();
+        Date date = new Date();
+        this.createTime = date;
     }
     @Override
     public void preUpdate() {
-
+        Date date = new Date();
+        this.updateTime = date;
     }
     @JSONField(serialize = false)
     @Override

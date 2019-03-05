@@ -29,7 +29,7 @@ public class ViewShopGoodsEntity extends AbstractModel<ViewShopGoodsEntity> {
     */
     @Excel(name = "主键")
     @TableField(value="id")
-    private Integer id;
+    private Long id;
     /**
     * 商品名称
     */
@@ -231,14 +231,14 @@ public class ViewShopGoodsEntity extends AbstractModel<ViewShopGoodsEntity> {
     /**
     * 获取: 主键
     */
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
     /**
     * 设置: 主键
     * 
     */
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
     /**

@@ -216,6 +216,20 @@ public abstract class AbstractPureService<D extends BaseMapper<T>,T extends Abst
         }
         return retBool(dao.insert(entity));
     }
+    /**
+     * 插入一条记录并返回记录
+     *
+     * @param entity 实体对象
+     * @return int
+     */
+    @Transactional(rollbackFor={RuntimeException.class})
+    public Object insertAndReturn(T entity){
+        if (entity.getIsNewRecord()){
+            entity.preInsert();
+        }
+        retBool(dao.insert(entity));
+        return entity;
+    }
 
     /**
      * 全部行插入一条记录

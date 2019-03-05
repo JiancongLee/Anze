@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.modules.base.annex.dao.BaseAnnexDao">
+
+    <resultMap id="BaseResultMap" type="cn.modules.base.annex.entity.BaseAnnexEntity">
+        <result column="id" property="id" />
+        <result column="annex_type" property="annexType" />
+        <result column="file_type" property="fileType" />
+        <result column="annex_name" property="annexName" />
+        <result column="base_path" property="basePath" />
+        <result column="date_path" property="datePath" />
+        <result column="file_name" property="fileName" />
+        <result column="upload_date" property="uploadDate" />
+        <result column="absolute_path" property="absolutePath" />
+        <result column="upload_user_id" property="uploadUserId" />
+        <result column="upload_user_name" property="uploadUserName" />
+        <result column="update_date" property="updateDate" />
+        <result column="update_user_id" property="updateUserId" />
+        <result column="update_user_name" property="updateUserName" />
+    </resultMap>
+
+
+    <delete id="deleteByModel">
+        delete <if test="'${dbName}' == 'mysql'"> t </if> from BASE_ANNEX t
+        <where>
+            <include refid="select_content"/>
+        </where>
+    </delete>
+
+    <select id="selectCountByModel" resultType="int">
+        select count(1) from BASE_ANNEX t
+        <where>
+            <include refid="select_content"/>
+        </where>
+    </select>
+
+    <select id="selectListModel" resultMap="BaseResultMap">
+        select * from BASE_ANNEX t
+        <where>
+            <include refid="select_content"/>
+        </where>
+    </select>
+
+    <select id="selectPage" resultMap="BaseResultMap">
+        select * from BASE_ANNEX t
+        <where>
+            <include refid="select_content"/>
+             ${ew.sqlSegment}
+        </where>
+    </select>
+
+    <select id="queryPage" resultMap="BaseResultMap">
+        select * from BASE_ANNEX t
+        <where>
+            ${ew.sqlSegment}
+        </where>
+    </select>
+
+    <sql id="select_content">
+        <if test="e.id != null and e.id != '' ">
+            AND t.ID = #{e.id}
+        </if>
+        <if test="e.annexType != null and e.annexType != '' ">
+            AND t.ANNEX_TYPE = #{e.annexType}
+        </if>
+        <if test="e.fileType != null and e.fileType != '' ">
+            AND t.FILE_TYPE = #{e.fileType}
+        </if>
+        <if test="e.annexName != null and e.annexName != '' ">
+            AND t.ANNEX_NAME = #{e.annexName}
+        </if>
+        <if test="e.basePath != null and e.basePath != '' ">
+            AND t.BASE_PATH = #{e.basePath}
+        </if>
+        <if test="e.datePath != null and e.datePath != '' ">
+            AND t.DATE_PATH = #{e.datePath}
+        </if>
+        <if test="e.fileName != null and e.fileName != '' ">
+            AND t.FILE_NAME = #{e.fileName}
+        </if>
+        <if test="e.uploadDate != null and e.uploadDate != '' ">
+            AND t.UPLOAD_DATE = #{e.uploadDate}
+        </if>
+        <if test="e.absolutePath != null and e.absolutePath != '' ">
+            AND t.ABSOLUTE_PATH = #{e.absolutePath}
+        </if>
+        <if test="e.uploadUserId != null and e.uploadUserId != '' ">
+            AND t.UPLOAD_USER_ID = #{e.uploadUserId}
+        </if>
+        <if test="e.uploadUserName != null and e.uploadUserName != '' ">
+            AND t.UPLOAD_USER_NAME = #{e.uploadUserName}
+        </if>
+        <if test="e.updateDate != null and e.updateDate != '' ">
+            AND t.UPDATE_DATE = #{e.updateDate}
+        </if>
+        <if test="e.updateUserId != null and e.updateUserId != '' ">
+            AND t.UPDATE_USER_ID = #{e.updateUserId}
+        </if>
+        <if test="e.updateUserName != null and e.updateUserName != '' ">
+            AND t.UPDATE_USER_NAME = #{e.updateUserName}
+        </if>
+    </sql>
+
+</mapper>

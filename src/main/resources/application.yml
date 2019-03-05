@@ -59,7 +59,9 @@ spring:
   # 文件大小上传配置
   servlet:
     multipart:
-      max-file-size: 5Mb
+      # 设置单个文件最大内存
+      max-file-size: 50Mb
+      # 设置所有文件最大内存
       max-request-size: 5Mb
 
 
@@ -101,22 +103,6 @@ Anze:
   # mob api配置 mob官网注册申请即可
   mob:
     appKey: 你的appKey
-
-# 忽略鉴权url
-#ignored:
-#  urls:
-#    - /xboot/user/regist
-#    - /xboot/common/**
-#    - /druid/**
-#    - /swagger-ui.html
-#    - /swagger-resources/**
-#    - /swagger/**
-#    - /**/v2/api-docs
-#    - /**/*.js
-#    - /**/*.css
-#    - /**/*.png
-#    - /**/*.ico
-#    - /test/**
 
 # Swagger界面内容配置
 swagger:

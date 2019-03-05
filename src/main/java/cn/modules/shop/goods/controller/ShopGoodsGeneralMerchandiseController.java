@@ -11,6 +11,7 @@ import cn.common.utils.AttachUtils;
 import cn.common.utils.PageUtils;
 import cn.common.utils.Result;
 import cn.hutool.core.date.DateUtil;
+import cn.modules.base.annex.entity.BaseAnnexEntity;
 import cn.modules.sys.entity.BatchBaseinfoAttachEntity;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
@@ -64,7 +65,7 @@ public class ShopGoodsGeneralMerchandiseController extends AbstractController {
     * @return Object 执行结果
     */
     @PostMapping(value = "/add")
-    @RequiresPermissions("shopgoodsgeneralmerchandise:add")
+    @RequiresPermissions("shopgoods:add")
     public Object add(@RequestBody ShopGoodsGeneralMerchandiseEntity entity) {
         shopGoodsGeneralMerchandiseService.insert(entity);
         return Result.ok();
@@ -76,7 +77,7 @@ public class ShopGoodsGeneralMerchandiseController extends AbstractController {
     * @return Object 执行结果
     */
     @PostMapping(value = "/delete")
-    @RequiresPermissions("shopgoodsgeneralmerchandise:delete")
+    @RequiresPermissions("shopgoods:delete")
     public Object delete(@RequestBody Integer[] ids) {
         shopGoodsGeneralMerchandiseService.deleteBatchIds(Arrays.asList(ids));
         return Result.ok();
@@ -113,7 +114,7 @@ public class ShopGoodsGeneralMerchandiseController extends AbstractController {
     public Object  importFile(@RequestParam("file")MultipartFile file){
 
         boolean flag = true;
-        BatchBaseinfoAttachEntity model = new BatchBaseinfoAttachEntity();
+        BaseAnnexEntity model = new BaseAnnexEntity();
         try {
             InputStream inputStream = file.getInputStream();
             ImportParams params = new ImportParams();

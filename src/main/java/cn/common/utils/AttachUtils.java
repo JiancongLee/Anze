@@ -4,6 +4,8 @@ import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.system.OsInfo;
 import cn.hutool.system.UserInfo;
+import cn.modules.base.annex.entity.BaseAnnexEntity;
+import cn.modules.base.annex.service.BaseAnnexService;
 import cn.modules.sys.entity.BatchBaseinfoAttachEntity;
 import cn.modules.sys.service.BatchBaseinfoAttachService;
 import cn.properties.FtpProperties;
@@ -31,44 +33,16 @@ import static cn.hutool.core.date.DatePattern.PURE_DATETIME_MS_PATTERN;
 public class AttachUtils {
 
     private static BatchBaseinfoAttachService batchBaseinfoAttachService = SpringContextHolder.getBean(BatchBaseinfoAttachService.class);
+    private static BaseAnnexService baseAnnexService = SpringContextHolder.getBean(BaseAnnexService.class);
 
     private static FtpProperties ftpProperties = SpringContextHolder.getBean(FtpProperties.class);
 
     private static MyFtpClient myFtpClient = SpringContextHolder.getBean(MyFtpClient.class);
 
-    public static BatchBaseinfoAttachEntity saveTmpFile(Workbook workbook, String fileName){
-        BatchBaseinfoAttachEntity attach = new BatchBaseinfoAttachEntity();
-        String toDayStr = DateUtil.today();
-        String savePath = getUploadPath()+"/"+toDayStr;
-
-        if (workbook instanceof HSSFWorkbook) {
-            fileName +=  ".xls";
-            savePath += "/"+ DateUtil.format(new Date(),PURE_DATETIME_MS_PATTERN)+".xls";
-        } else {
-            fileName += ".xlsx";
-            savePath += "/"+  DateUtil.format(new Date(),PURE_DATETIME_MS_PATTERN)+".xlsx";
-        }
-        attach.setUploadFileName(fileName);
-        if (!FileUtil.exist(savePath)){
-            FileUtil.touch(savePath);
-        }
-        try {
-            FileOutputStream fos = new FileOutputStream(savePath);
-            workbook.write(fos);
-            fos.close();
-            attach.setLocalSavePath(savePath);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        attach.setAttachType("1");
-        attach.setDelFlag("0");
-        batchBaseinfoAttachService.insert(attach);
-        return attach;
-    }
-
+    /**
+     * 获取根路径
+     * @return
+     */
     public static String getUploadPath(){
         String rootLocation = "";
         OsInfo info = new OsInfo();
@@ -86,7 +60,11 @@ public class AttachUtils {
         return rootLocation;
     }
 
-
+    /**
+     * 更新状态
+     * @param string
+     * @return
+     */
     public static boolean updateStatus(String string){
 
         List<BatchBaseinfoAttachEntity> models = Lists.newArrayList();
@@ -111,7 +89,10 @@ public class AttachUtils {
 
     }
 
-
+    /**
+     * 根据状态而删除
+     * @return
+     */
     public static boolean deleteByStatus(){
         EntityWrapper wrapper =  new EntityWrapper<BatchBaseinfoAttachEntity>();
 
@@ -129,47 +110,86 @@ public class AttachUtils {
 
     }
 
-    public static BatchBaseinfoAttachEntity saveTmpFile(MultipartFile file){
+    /**
+     * 保存文件
+     * @param file
+     * @return
+     */
+    public static BaseAnnexEntity saveTmpFile(MultipartFile file){
 
         if (!file.isEmpty()){
-            BatchBaseinfoAttachEntity attach = new BatchBaseinfoAttachEntity();
+            BaseAnnexEntity annex = new BaseAnnexEntity();
             String toDayStr = DateUtil.today();
-            String savePath = getUploadPath()+"/"+toDayStr;
-            attach.setUploadFileName(file.getOriginalFilename());
-
+            String savePath = getUploadPath()+"/"+toDayStr.replaceAll("-","/");
+            annex.setAnnexName(file.getOriginalFilename());
             if (!FileUtil.exist(savePath)){
                 FileUtil.mkdir(savePath);
             }
-
             String saveName = savePath + "/"+ DateUtil.format(new Date(),PURE_DATETIME_MS_PATTERN)+"."+ FileUtil.extName(file.getOriginalFilename());
             File savefile = new File(saveName);
             try {
                 file.transferTo(savefile);
-                attach.setLocalSavePath(saveName);
+                annex.setAbsolutePath(saveName);
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            attach.setDelFlag("0");
-            batchBaseinfoAttachService.insert(attach);
-            return attach;
+            baseAnnexService.insert(annex);
+            return annex;
         }else {
             return null;
         }
+    }
+    /**
+     * 保存文件(excel)
+     * @param workbook
+     * @param fileName
+     * @return
+     */
+    public static BaseAnnexEntity saveTmpFile(Workbook workbook, String fileName){
+        BaseAnnexEntity annex = new BaseAnnexEntity();
+        String toDayStr = DateUtil.today();
+        String savePath = getUploadPath()+"/"+toDayStr.replaceAll("-","/");
 
+        if (workbook instanceof HSSFWorkbook) {
+            fileName +=  ".xls";
+            savePath += "/"+ DateUtil.format(new Date(),PURE_DATETIME_MS_PATTERN)+".xls";
+        } else {
+            fileName += ".xlsx";
+            savePath += "/"+  DateUtil.format(new Date(),PURE_DATETIME_MS_PATTERN)+".xlsx";
+        }
+        annex.setAnnexName(fileName);
+        if (!FileUtil.exist(savePath)){
+            FileUtil.touch(savePath);
+        }
+        try {
+            FileOutputStream fos = new FileOutputStream(savePath);
+            workbook.write(fos);
+            fos.close();
+            annex.setAbsolutePath(savePath);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        baseAnnexService.insert(annex);
+        return annex;
     }
 
+    /**
+     * 根据附件id下载文件
+     * @param id
+     * @return
+     */
     public static boolean getDownloadFtp(String id){
 
         boolean flag = false;
         BatchBaseinfoAttachEntity attach = batchBaseinfoAttachService.selectById(id);
         if (attach != null && StringUtils.isNotBlank(attach.getFsFileName())){
             String fullPath = FileUtils.joinDirectory(attach.getFsBusiPath(),attach.getFsDatePath());
-
             String localPath = attach.getLocalSavePath();
             if (!FileUtil.exist(localPath)){
                 FileUtil.mkdir(localPath);
             }
-
             if (myFtpClient.download(fullPath,attach.getFsFileName(),attach.getLocalSavePath())){
                 flag = true;
             }
