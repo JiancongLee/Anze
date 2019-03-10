@@ -12,7 +12,6 @@ import cn.common.utils.PageUtils;
 import cn.common.utils.Result;
 import cn.hutool.core.date.DateUtil;
 import cn.modules.base.annex.entity.BaseAnnexEntity;
-import cn.modules.sys.entity.BatchBaseinfoAttachEntity;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.plugins.pagination.Pagination;
@@ -36,7 +35,7 @@ import org.springframework.web.multipart.MultipartFile;
 * 品牌制造商控制器
 *
 * @author jianconglee
-* @date 2019-02-21 22:20:34
+* @date 2019-03-06 12:41:38
 */
 @RestController
 @RequestMapping("/shopbrand")
@@ -50,12 +49,23 @@ public class ShopBrandController extends AbstractController {
     * @param entity 对象
     * @return Object 分页信息
     */
-    @GetMapping(value = "/list")
-    public Object list(ShopBrandEntity entity) {
+    @GetMapping(value = "/page")
+    public Object page(ShopBrandEntity entity) {
         Page<ShopBrandEntity> page = new PageFactory<ShopBrandEntity>().defaultPage();
         page.setRecords(shopBrandService.selectPage(page,entity,new EntityWrapper<ShopBrandEntity>()));
 
         return Result.ok().put("page", new PageUtils(page));
+    }
+
+    /**
+     * 获取分页信息
+     * @param entity 对象
+     * @return Object 分页信息
+     */
+    @GetMapping(value = "/list")
+    public Object list(ShopBrandEntity entity) {
+        List<ShopBrandEntity> list = shopBrandService.selectList(entity);
+        return Result.ok().put("list", list);
     }
 
 
@@ -78,7 +88,7 @@ public class ShopBrandController extends AbstractController {
     */
     @PostMapping(value = "/delete")
     @RequiresPermissions("shopbrand:delete")
-    public Object delete(@RequestBody Long[] ids) {
+    public Object delete(@RequestBody Integer[] ids) {
         shopBrandService.deleteBatchIds(Arrays.asList(ids));
         return Result.ok();
     }

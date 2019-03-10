@@ -19,7 +19,7 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 * 品牌制造商 entity 对象实体类
 *
 * @author jianconglee
-* @Date 2019-02-21 22:20:34
+* @Date 2019-03-06 12:41:38
 */
 @TableName("shop_brand")
 public class ShopBrandEntity extends AbstractModel<ShopBrandEntity> {
@@ -28,7 +28,7 @@ public class ShopBrandEntity extends AbstractModel<ShopBrandEntity> {
     * 主键
     */
     @Excel(name = "主键")
-    @TableId(value="id")
+    @TableId(value ="id",type = IdType.ID_WORKER)
     private Long id;
     /**
     * 品牌名称
@@ -36,12 +36,6 @@ public class ShopBrandEntity extends AbstractModel<ShopBrandEntity> {
     @Excel(name = "品牌名称")
     @TableField(value="name")
     private String name;
-    /**
-    * 图片
-    */
-    @Excel(name = "图片")
-    @TableField(value="list_pic_url")
-    private String listPicUrl;
     /**
     * 描述
     */
@@ -61,41 +55,17 @@ public class ShopBrandEntity extends AbstractModel<ShopBrandEntity> {
     @TableField(value="sort_order")
     private Integer sortOrder;
     /**
-    * 显示
+    * 创建时间
     */
-    @Excel(name = "显示")
-    @TableField(value="is_show")
-    private Integer isShow;
+    @Excel(name = "创建时间",exportFormat = "yyyy-MM-dd HH:mm:ss")
+    @TableField(value="create_time")
+    private Date createTime;
     /**
-    * FloorPrice
+    * 更新时间
     */
-    @Excel(name = "FloorPrice")
-    @TableField(value="floor_price")
-    private BigDecimal floorPrice;
-    /**
-    * app显示图片
-    */
-    @Excel(name = "app显示图片")
-    @TableField(value="app_list_pic_url")
-    private String appListPicUrl;
-    /**
-    * 新品牌
-    */
-    @Excel(name = "新品牌")
-    @TableField(value="is_new")
-    private Integer isNew;
-    /**
-    * 图片
-    */
-    @Excel(name = "图片")
-    @TableField(value="new_pic_url")
-    private String newPicUrl;
-    /**
-    * 排序
-    */
-    @Excel(name = "排序")
-    @TableField(value="new_sort_order")
-    private Integer newSortOrder;
+    @Excel(name = "更新时间",exportFormat = "yyyy-MM-dd HH:mm:ss")
+    @TableField(value="update_time")
+    private Date updateTime;
     /**
     * 获取: 主键
     */
@@ -121,19 +91,6 @@ public class ShopBrandEntity extends AbstractModel<ShopBrandEntity> {
     */
     public void setName(String name) {
         this.name = name;
-    }
-    /**
-    * 获取: 图片
-    */
-    public String getListPicUrl() {
-        return listPicUrl;
-    }
-    /**
-    * 设置: 图片
-    * 
-    */
-    public void setListPicUrl(String listPicUrl) {
-        this.listPicUrl = listPicUrl;
     }
     /**
     * 获取: 描述
@@ -175,82 +132,34 @@ public class ShopBrandEntity extends AbstractModel<ShopBrandEntity> {
         this.sortOrder = sortOrder;
     }
     /**
-    * 获取: 显示
+    * 获取: 创建时间
     */
-    public Integer getIsShow() {
-        return isShow;
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
+    public Date getCreateTime() {
+        return createTime;
     }
     /**
-    * 设置: 显示
+    * 设置: 创建时间
     * 
     */
-    public void setIsShow(Integer isShow) {
-        this.isShow = isShow;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
     /**
-    * 获取: FloorPrice
+    * 获取: 更新时间
     */
-    public BigDecimal getFloorPrice() {
-        return floorPrice;
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
+    public Date getUpdateTime() {
+        return updateTime;
     }
     /**
-    * 设置: FloorPrice
+    * 设置: 更新时间
     * 
     */
-    public void setFloorPrice(BigDecimal floorPrice) {
-        this.floorPrice = floorPrice;
-    }
-    /**
-    * 获取: app显示图片
-    */
-    public String getAppListPicUrl() {
-        return appListPicUrl;
-    }
-    /**
-    * 设置: app显示图片
-    * 
-    */
-    public void setAppListPicUrl(String appListPicUrl) {
-        this.appListPicUrl = appListPicUrl;
-    }
-    /**
-    * 获取: 新品牌
-    */
-    public Integer getIsNew() {
-        return isNew;
-    }
-    /**
-    * 设置: 新品牌
-    * 
-    */
-    public void setIsNew(Integer isNew) {
-        this.isNew = isNew;
-    }
-    /**
-    * 获取: 图片
-    */
-    public String getNewPicUrl() {
-        return newPicUrl;
-    }
-    /**
-    * 设置: 图片
-    * 
-    */
-    public void setNewPicUrl(String newPicUrl) {
-        this.newPicUrl = newPicUrl;
-    }
-    /**
-    * 获取: 排序
-    */
-    public Integer getNewSortOrder() {
-        return newSortOrder;
-    }
-    /**
-    * 设置: 排序
-    * 
-    */
-    public void setNewSortOrder(Integer newSortOrder) {
-        this.newSortOrder = newSortOrder;
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 
     @Override
@@ -262,10 +171,13 @@ public class ShopBrandEntity extends AbstractModel<ShopBrandEntity> {
     public void preInsert() {
         Sequence sequence = new Sequence(0, 0);
         this.id = sequence.nextId();
+        Date date = new Date();
+        this.createTime = date;
     }
     @Override
     public void preUpdate() {
-
+        Date date = new Date();
+        this.updateTime = date;
     }
     @JSONField(serialize = false)
     @Override

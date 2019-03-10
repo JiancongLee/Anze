@@ -1,5 +1,5 @@
 package cn.modules.shop.brand.service;
-import cn.base.AbstractService;
+import cn.base.AbstractPureService;
 import com.baomidou.mybatisplus.mapper.SqlHelper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.pagination.Pagination;
@@ -13,11 +13,11 @@ import org.springframework.transaction.annotation.Transactional;
 * 品牌制造商Service  业务接口
 *
 * @author jianconglee
-* @date 2019-02-21 22:20:34
+* @date 2019-03-06 12:41:38
 */
 @Service
 @Transactional(readOnly = true,rollbackFor={RuntimeException.class})
-public class ShopBrandService extends AbstractService<ShopBrandDao,ShopBrandEntity> {
+public class ShopBrandService extends AbstractPureService<ShopBrandDao,ShopBrandEntity> {
 
     /**
     * <p>

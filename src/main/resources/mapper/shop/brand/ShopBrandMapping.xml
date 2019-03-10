@@ -5,16 +5,11 @@
     <resultMap id="BaseResultMap" type="cn.modules.shop.brand.entity.ShopBrandEntity">
         <result column="id" property="id" />
         <result column="name" property="name" />
-        <result column="list_pic_url" property="listPicUrl" />
         <result column="simple_desc" property="simpleDesc" />
         <result column="pic_url" property="picUrl" />
         <result column="sort_order" property="sortOrder" />
-        <result column="is_show" property="isShow" />
-        <result column="floor_price" property="floorPrice" />
-        <result column="app_list_pic_url" property="appListPicUrl" />
-        <result column="is_new" property="isNew" />
-        <result column="new_pic_url" property="newPicUrl" />
-        <result column="new_sort_order" property="newSortOrder" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
     </resultMap>
 
 
@@ -61,9 +56,6 @@
         <if test="e.name != null and e.name != '' ">
             AND t.NAME = #{e.name}
         </if>
-        <if test="e.listPicUrl != null and e.listPicUrl != '' ">
-            AND t.LIST_PIC_URL = #{e.listPicUrl}
-        </if>
         <if test="e.simpleDesc != null and e.simpleDesc != '' ">
             AND t.SIMPLE_DESC = #{e.simpleDesc}
         </if>
@@ -73,23 +65,11 @@
         <if test="e.sortOrder != null and e.sortOrder != '' ">
             AND t.SORT_ORDER = #{e.sortOrder}
         </if>
-        <if test="e.isShow != null and e.isShow != '' ">
-            AND t.IS_SHOW = #{e.isShow}
+        <if test="e.createTime != null and e.createTime != '' ">
+            AND t.CREATE_TIME = #{e.createTime}
         </if>
-        <if test="e.floorPrice != null and e.floorPrice != '' ">
-            AND t.FLOOR_PRICE = #{e.floorPrice}
-        </if>
-        <if test="e.appListPicUrl != null and e.appListPicUrl != '' ">
-            AND t.APP_LIST_PIC_URL = #{e.appListPicUrl}
-        </if>
-        <if test="e.isNew != null and e.isNew != '' ">
-            AND t.IS_NEW = #{e.isNew}
-        </if>
-        <if test="e.newPicUrl != null and e.newPicUrl != '' ">
-            AND t.NEW_PIC_URL = #{e.newPicUrl}
-        </if>
-        <if test="e.newSortOrder != null and e.newSortOrder != '' ">
-            AND t.NEW_SORT_ORDER = #{e.newSortOrder}
+        <if test="e.updateTime != null and e.updateTime != '' ">
+            AND t.UPDATE_TIME = #{e.updateTime}
         </if>
     </sql>
 
