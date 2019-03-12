@@ -14,8 +14,8 @@
         <result column="goods_brief" property="goodsBrief" />
         <result column="sort_order" property="sortOrder" />
         <result column="goods_unit" property="goodsUnit" />
-        <result column="primary_pic_url" property="primaryPicUrl" />
-        <result column="list_pic_url" property="listPicUrl" />
+        <result column="primary_pic_id" property="primaryPicId" />
+        <result column="list_pic_ids" property="listPicIds" />
         <result column="is_new" property="isNew" />
         <result column="is_on_sale" property="isOnSale" />
         <result column="is_hot" property="isHot" />
@@ -109,11 +109,11 @@
         <if test="e.goodsUnit != null and e.goodsUnit != '' ">
             AND t.GOODS_UNIT = #{e.goodsUnit}
         </if>
-        <if test="e.primaryPicUrl != null and e.primaryPicUrl != '' ">
-            AND t.PRIMARY_PIC_URL = #{e.primaryPicUrl}
+        <if test="e.primaryPicId != null and e.primaryPicId != '' ">
+            AND t.PRIMARY_PIC_ID = #{e.primaryPicId}
         </if>
-        <if test="e.listPicUrl != null and e.listPicUrl != '' ">
-            AND t.LIST_PIC_URL = #{e.listPicUrl}
+        <if test="e.listPicIds != null and e.listPicIds != '' ">
+            AND t.LIST_PIC_IDS = #{e.listPicIds}
         </if>
         <if test="e.isNew != null and e.isNew != '' ">
             AND t.IS_NEW = #{e.isNew}

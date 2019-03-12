@@ -10,10 +10,7 @@ import cn.afterturn.easypoi.excel.entity.result.ExcelImportResult;
 import cn.base.AbstractController;
 import cn.common.exception.DefaultException;
 import cn.common.factory.PageFactory;
-import cn.common.utils.AttachUtils;
-import cn.common.utils.DownloadUtils;
-import cn.common.utils.PageUtils;
-import cn.common.utils.Result;
+import cn.common.utils.*;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.io.FileUtil;
 import cn.modules.sys.entity.BatchBaseinfoAttachEntity;
@@ -26,10 +23,12 @@ import cn.modules.base.annex.entity.BaseAnnexEntity;
 import cn.modules.base.annex.service.BaseAnnexService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.io.*;
 import java.util.List;
-import java.io.InputStream;
 import java.util.Date;
 import java.util.Arrays;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
@@ -243,5 +242,51 @@ public class BaseAnnexController extends AbstractController {
 //        }
 //        DownloadUtils.downloadFile(request,response,attach.getUploadFileName(),attach.getLocalSavePath());
 
+    }
+
+    @RequestMapping(value="/viewImage")
+    public void viewImage(HttpServletRequest request,
+                          HttpServletResponse response,@RequestParam("id")String id) throws IOException {
+        ServletContext cntx= request.getServletContext();
+        BaseAnnexEntity annex = baseAnnexService.selectById(id);
+        System.out.println(annex);
+        String localFullPath = FileUtils.joinDirectory(annex.getAbsolutePath(), annex.getFileName());
+        File localFile = new File(localFullPath);
+        if (!localFile.exists()) {
+            // 文件不不存在去FTP下载
+            File localPath = new File(annex.getAbsolutePath());
+            localPath.mkdirs();
+//            FtpSynchronServer ftp = new FtpSynchronServer();
+//            boolean downflag = false;
+//            try {
+//                downflag = ftp.download(localFullPath,
+//                        annex.getFsBasePath(), annex.getFsBusiPath(),
+//                        annex.getFsDatePath(), annex.getFsFileName());
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//            if (!downflag) {
+//                System.out.println("FTP下载失败:" + annex.getId());
+//                localFile = new File(localFullPath);
+//                localFile.delete();
+//            }
+        }
+        String mime = cntx.getMimeType(localFullPath);
+        if (mime == null) {
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            return;
+        }
+        response.setContentLength((int)localFile.length());
+        response.setContentType(mime);
+        FileInputStream in = new FileInputStream(localFile);
+        OutputStream out = response.getOutputStream();
+
+        byte[] buf = new byte[1024];
+        int count = 0;
+        while ((count = in.read(buf)) >= 0) {
+            out.write(buf, 0, count);
+        }
+        out.close();
+        in.close();
     }
 }

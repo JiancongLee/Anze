@@ -106,14 +106,14 @@ public class ShopGoodsEntity extends AbstractModel<ShopGoodsEntity> {
     * 商品主图
     */
     @Excel(name = "商品主图")
-    @TableField(value="primary_pic_url")
-    private String primaryPicUrl;
+    @TableField(value="primary_pic_id")
+    private String primaryPicId;
     /**
     * 商品列表图
     */
     @Excel(name = "商品列表图")
-    @TableField(value="list_pic_url")
-    private String listPicUrl;
+    @TableField(value="list_pic_ids")
+    private String listPicIds;
     /**
     * 是否新品：0否 1是
     */
@@ -332,30 +332,30 @@ public class ShopGoodsEntity extends AbstractModel<ShopGoodsEntity> {
         this.goodsUnit = goodsUnit;
     }
     /**
-    * 获取: 商品主图
-    */
-    public String getPrimaryPicUrl() {
-        return primaryPicUrl;
+     * 获取: 商品主图
+     */
+    public String getPrimaryPicId() {
+        return primaryPicId;
     }
     /**
-    * 设置: 商品主图
-    * 
-    */
-    public void setPrimaryPicUrl(String primaryPicUrl) {
-        this.primaryPicUrl = primaryPicUrl;
+     * 设置: 商品主图
+     *
+     */
+    public void setPrimaryPicId(String primaryPicId) {
+        this.primaryPicId = primaryPicId;
     }
     /**
-    * 获取: 商品列表图
-    */
-    public String getListPicUrl() {
-        return listPicUrl;
+     * 获取: 商品列表图
+     */
+    public String getListPicIds() {
+        return listPicIds;
     }
     /**
-    * 设置: 商品列表图
-    * 
-    */
-    public void setListPicUrl(String listPicUrl) {
-        this.listPicUrl = listPicUrl;
+     * 设置: 商品列表图
+     *
+     */
+    public void setListPicIds(String listPicIds) {
+        this.listPicIds = listPicIds;
     }
     /**
     * 获取: 是否新品：0否 1是
