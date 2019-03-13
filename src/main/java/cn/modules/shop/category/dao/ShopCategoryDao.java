@@ -13,7 +13,7 @@ import java.util.List;
 * ShopCategoryDao 模型，对应的xml 的一些数据
 *
 * @author jianconglee
-* @date 2019-02-21 21:13:26
+* @date 2019-03-12 17:15:31
 */
 @Mapper
 public interface ShopCategoryDao extends BaseMapper<ShopCategoryEntity>{

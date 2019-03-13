@@ -12,10 +12,10 @@ import cn.common.utils.PageUtils;
 import cn.common.utils.Result;
 import cn.hutool.core.date.DateUtil;
 import cn.modules.base.annex.entity.BaseAnnexEntity;
-import cn.modules.sys.entity.BatchBaseinfoAttachEntity;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.plugins.pagination.Pagination;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import cn.modules.shop.category.entity.ShopCategoryEntity;
 import cn.modules.shop.category.service.ShopCategoryService;
@@ -36,7 +36,7 @@ import org.springframework.web.multipart.MultipartFile;
 * 商品类型表控制器
 *
 * @author jianconglee
-* @date 2019-02-21 21:13:26
+* @date 2019-03-12 17:15:31
 */
 @RestController
 @RequestMapping("/shopcategory")
@@ -50,12 +50,30 @@ public class ShopCategoryController extends AbstractController {
     * @param entity 对象
     * @return Object 分页信息
     */
-    @GetMapping(value = "/list")
-    public Object list(ShopCategoryEntity entity) {
+    @GetMapping(value = "/page")
+    public Object page(ShopCategoryEntity entity) {
         Page<ShopCategoryEntity> page = new PageFactory<ShopCategoryEntity>().defaultPage();
         page.setRecords(shopCategoryService.selectPage(page,entity,new EntityWrapper<ShopCategoryEntity>()));
 
         return Result.ok().put("page", new PageUtils(page));
+    }
+
+    /**
+     * 获取分页信息
+     * @param entity 对象
+     * @return Object 分页信息
+     */
+    @GetMapping(value = "/list")
+    public Object list(ShopCategoryEntity entity) {
+//        Page<ShopCategoryEntity> page = new PageFactory<ShopCategoryEntity>().defaultPage();
+//        page.setRecords(shopCategoryService.selectPage(page,entity,new EntityWrapper<ShopCategoryEntity>()));
+
+        EntityWrapper<ShopCategoryEntity> wrapper = new EntityWrapper<>();
+        if (entity != null && entity.getLevel()!= null){
+            wrapper.eq("level",entity.getLevel());
+        }
+        List<ShopCategoryEntity> list = shopCategoryService.selectList(wrapper);
+        return Result.ok().put("list", list);
     }
 
 
@@ -78,7 +96,8 @@ public class ShopCategoryController extends AbstractController {
     */
     @PostMapping(value = "/delete")
     @RequiresPermissions("shopcategory:delete")
-    public Object delete(@RequestBody Long[] ids) {
+    public Object delete(@RequestBody Integer[] ids) {
+        shopCategoryService.deleteBatchIds(Arrays.asList(ids));
         shopCategoryService.deleteBatchIds(Arrays.asList(ids));
         return Result.ok();
     }

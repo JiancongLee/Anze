@@ -4,20 +4,18 @@
 
     <resultMap id="BaseResultMap" type="cn.modules.shop.category.entity.ShopCategoryEntity">
         <result column="id" property="id" />
-        <result column="name" property="name" />
-        <result column="keywords" property="keywords" />
-        <result column="front_desc" property="frontDesc" />
         <result column="parent_id" property="parentId" />
+        <result column="name" property="name" />
+        <result column="level" property="level" />
+        <result column="keywords" property="keywords" />
+        <result column="desc" property="desc" />
         <result column="sort_order" property="sortOrder" />
-        <result column="show_index" property="showIndex" />
         <result column="is_show" property="isShow" />
         <result column="banner_url" property="bannerUrl" />
         <result column="icon_url" property="iconUrl" />
         <result column="img_url" property="imgUrl" />
-        <result column="wap_banner_url" property="wapBannerUrl" />
-        <result column="level" property="level" />
-        <result column="type" property="type" />
-        <result column="front_name" property="frontName" />
+        <result column="update_time" property="updateTime" />
+        <result column="create_time" property="createTime" />
     </resultMap>
 
 
@@ -61,23 +59,23 @@
         <if test="e.id != null and e.id != '' ">
             AND t.ID = #{e.id}
         </if>
+        <if test="e.parentId != null and e.parentId != '' ">
+            AND t.PARENT_ID = #{e.parentId}
+        </if>
         <if test="e.name != null and e.name != '' ">
             AND t.NAME = #{e.name}
+        </if>
+        <if test="e.level != null and e.level != '' ">
+            AND t.LEVEL = #{e.level}
         </if>
         <if test="e.keywords != null and e.keywords != '' ">
             AND t.KEYWORDS = #{e.keywords}
         </if>
-        <if test="e.frontDesc != null and e.frontDesc != '' ">
-            AND t.FRONT_DESC = #{e.frontDesc}
-        </if>
-        <if test="e.parentId != null and e.parentId != '' ">
-            AND t.PARENT_ID = #{e.parentId}
+        <if test="e.desc != null and e.desc != '' ">
+            AND t.DESC = #{e.desc}
         </if>
         <if test="e.sortOrder != null and e.sortOrder != '' ">
             AND t.SORT_ORDER = #{e.sortOrder}
-        </if>
-        <if test="e.showIndex != null and e.showIndex != '' ">
-            AND t.SHOW_INDEX = #{e.showIndex}
         </if>
         <if test="e.isShow != null and e.isShow != '' ">
             AND t.IS_SHOW = #{e.isShow}
@@ -91,17 +89,11 @@
         <if test="e.imgUrl != null and e.imgUrl != '' ">
             AND t.IMG_URL = #{e.imgUrl}
         </if>
-        <if test="e.wapBannerUrl != null and e.wapBannerUrl != '' ">
-            AND t.WAP_BANNER_URL = #{e.wapBannerUrl}
+        <if test="e.updateTime != null and e.updateTime != '' ">
+            AND t.UPDATE_TIME = #{e.updateTime}
         </if>
-        <if test="e.level != null and e.level != '' ">
-            AND t.LEVEL = #{e.level}
-        </if>
-        <if test="e.type != null and e.type != '' ">
-            AND t.TYPE = #{e.type}
-        </if>
-        <if test="e.frontName != null and e.frontName != '' ">
-            AND t.FRONT_NAME = #{e.frontName}
+        <if test="e.createTime != null and e.createTime != '' ">
+            AND t.CREATE_TIME = #{e.createTime}
         </if>
     </sql>
 

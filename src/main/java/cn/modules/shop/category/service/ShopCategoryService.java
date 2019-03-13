@@ -1,5 +1,5 @@
 package cn.modules.shop.category.service;
-import cn.base.AbstractService;
+import cn.base.AbstractPureService;
 import com.baomidou.mybatisplus.mapper.SqlHelper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.pagination.Pagination;
@@ -13,11 +13,11 @@ import org.springframework.transaction.annotation.Transactional;
 * 商品类型表Service  业务接口
 *
 * @author jianconglee
-* @date 2019-02-21 21:13:26
+* @date 2019-03-12 17:15:31
 */
 @Service
 @Transactional(readOnly = true,rollbackFor={RuntimeException.class})
-public class ShopCategoryService extends AbstractService<ShopCategoryDao,ShopCategoryEntity> {
+public class ShopCategoryService extends AbstractPureService<ShopCategoryDao,ShopCategoryEntity> {
 
     /**
     * <p>
