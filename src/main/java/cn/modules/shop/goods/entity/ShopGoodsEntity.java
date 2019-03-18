@@ -53,7 +53,7 @@ public class ShopGoodsEntity extends AbstractModel<ShopGoodsEntity> {
     */
     @Excel(name = "商品类别ID")
     @TableField(value="category_id")
-    private Long categoryId;
+    private String categoryId;
     /**
     * 序列号
     */
@@ -217,14 +217,14 @@ public class ShopGoodsEntity extends AbstractModel<ShopGoodsEntity> {
     /**
     * 获取: 商品类别ID
     */
-    public Long getCategoryId() {
+    public String getCategoryId() {
         return categoryId;
     }
     /**
     * 设置: 商品类别ID
     * 
     */
-    public void setCategoryId(Long categoryId) {
+    public void setCategoryId(String categoryId) {
         this.categoryId = categoryId;
     }
     /**

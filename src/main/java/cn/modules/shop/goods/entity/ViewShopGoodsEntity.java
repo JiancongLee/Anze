@@ -53,7 +53,7 @@ public class ViewShopGoodsEntity extends AbstractModel<ViewShopGoodsEntity> {
     */
     @Excel(name = "商品类别ID")
     @TableField(value="category_id")
-    private Integer categoryId;
+    private String categoryId;
     /**
     * 序列号
     */
@@ -283,14 +283,14 @@ public class ViewShopGoodsEntity extends AbstractModel<ViewShopGoodsEntity> {
     /**
     * 获取: 商品类别ID
     */
-    public Integer getCategoryId() {
+    public String getCategoryId() {
         return categoryId;
     }
     /**
     * 设置: 商品类别ID
     * 
     */
-    public void setCategoryId(Integer categoryId) {
+    public void setCategoryId(String categoryId) {
         this.categoryId = categoryId;
     }
     /**
