@@ -322,6 +322,8 @@ public class ViewShopGoodsEntity extends AbstractModel<ViewShopGoodsEntity> {
     /**
     * 获取: 专柜价格
     */
+
+
     public BigDecimal getCounterPrice() {
         return counterPrice;
     }
