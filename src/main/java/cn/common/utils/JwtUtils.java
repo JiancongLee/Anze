@@ -1,5 +1,6 @@
 package cn.common.utils;
 
+import com.baomidou.mybatisplus.toolkit.Sequence;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -32,12 +33,14 @@ public class JwtUtils {
      */
     public String generateToken(long userId) {
         Date nowDate = new Date();
+        Sequence sequence = new Sequence(0, 0);
+        String tokenId = String.valueOf(userId)+"_"+sequence.nextId();
         //过期时间
         Date expireDate = new Date(nowDate.getTime() + expire * 1000);
 
         return Jwts.builder()
                 .setHeaderParam("typ", "JWT")
-                .setSubject(userId+"")
+                .setSubject(tokenId)
                 .setIssuedAt(nowDate)
                 .setExpiration(expireDate)
                 .signWith(SignatureAlgorithm.HS512, secret)

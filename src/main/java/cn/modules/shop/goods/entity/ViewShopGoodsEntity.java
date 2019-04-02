@@ -47,13 +47,20 @@ public class ViewShopGoodsEntity extends AbstractModel<ViewShopGoodsEntity> {
     */
     @Excel(name = "品牌id")
     @TableField(value="brand_id")
-    private Integer brandId;
+    private Long brandId;
+    /**
+     * 品牌name
+     */
+    @Excel(name = "品牌name")
+//    @TableField(exist = false)
+    @TableField(value="brand_name")
+    private String brandName;
     /**
     * 商品类别ID
     */
     @Excel(name = "商品类别ID")
     @TableField(value="category_id")
-    private String categoryId;
+    private Long categoryId;
     /**
     * 序列号
     */
@@ -84,6 +91,12 @@ public class ViewShopGoodsEntity extends AbstractModel<ViewShopGoodsEntity> {
     @Excel(name = "商品简介")
     @TableField(value="goods_brief")
     private String goodsBrief;
+    /**
+     * 商品详细介绍
+     */
+    @Excel(name = "商品详细介绍")
+    @TableField(value="goods_desc")
+    private String goodsDesc;
     /**
     * SortOrder
     */
@@ -270,27 +283,41 @@ public class ViewShopGoodsEntity extends AbstractModel<ViewShopGoodsEntity> {
     /**
     * 获取: 品牌id
     */
-    public Integer getBrandId() {
+    public Long getBrandId() {
         return brandId;
     }
     /**
     * 设置: 品牌id
     * 
     */
-    public void setBrandId(Integer brandId) {
+    public void setBrandId(Long brandId) {
         this.brandId = brandId;
     }
     /**
+     * 获取: 品牌name
+     */
+    public String getBrandName() {
+        return brandName;
+    }
+    /**
+     * 设置: 品牌name
+     *
+     */
+    public void setBrandName(String brandName) {
+        this.brandName = brandName;
+    }
+
+    /**
     * 获取: 商品类别ID
     */
-    public String getCategoryId() {
+    public Long getCategoryId() {
         return categoryId;
     }
     /**
     * 设置: 商品类别ID
     * 
     */
-    public void setCategoryId(String categoryId) {
+    public void setCategoryId(Long categoryId) {
         this.categoryId = categoryId;
     }
     /**
@@ -674,6 +701,19 @@ public class ViewShopGoodsEntity extends AbstractModel<ViewShopGoodsEntity> {
     */
     public void setDefectsLiabilityPeriod(String defectsLiabilityPeriod) {
         this.defectsLiabilityPeriod = defectsLiabilityPeriod;
+    }
+    /**
+     * 获取: 商品详细介绍
+     */
+    public String getGoodsDesc() {
+        return goodsDesc;
+    }
+    /**
+     * 设置: 商品详细介绍
+     *
+     */
+    public void setGoodsDesc(String goodsDesc) {
+        this.goodsDesc = goodsDesc;
     }
 
     @Override

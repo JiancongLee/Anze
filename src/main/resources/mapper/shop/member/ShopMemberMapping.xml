@@ -4,21 +4,23 @@
 
     <resultMap id="BaseResultMap" type="cn.modules.shop.member.entity.ShopMemberEntity">
         <result column="id" property="id" />
-        <result column="username" property="username" />
+        <result column="weixin_open_id" property="weixinOpenId" />
+        <result column="user_name" property="userName" />
+        <result column="nick_name" property="nickName" />
         <result column="password" property="password" />
         <result column="status" property="status" />
+        <result column="avatar" property="avatar" />
         <result column="gender" property="gender" />
+        <result column="mobile" property="mobile" />
+        <result column="country" property="country" />
+        <result column="province" property="province" />
+        <result column="city" property="city" />
         <result column="birthday" property="birthday" />
+        <result column="language" property="language" />
+        <result column="member_level_code" property="memberLevelCode" />
         <result column="register_time" property="registerTime" />
         <result column="last_login_time" property="lastLoginTime" />
         <result column="last_login_ip" property="lastLoginIp" />
-        <result column="user_level_code" property="userLevelCode" />
-        <result column="nickname" property="nickname" />
-        <result column="mobile" property="mobile" />
-        <result column="avatar" property="avatar" />
-        <result column="weixin_openid" property="weixinOpenid" />
-        <result column="create_time" property="createTime" />
-        <result column="update_time" property="updateTime" />
     </resultMap>
 
 
@@ -47,7 +49,7 @@
         select * from SHOP_MEMBER t
         <where>
             <include refid="select_content"/>
-             ${ew.sqlSegment}
+            ${ew.sqlSegment}
         </where>
     </select>
 
@@ -62,8 +64,14 @@
         <if test="e.id != null and e.id != '' ">
             AND t.ID = #{e.id}
         </if>
-        <if test="e.username != null and e.username != '' ">
-            AND t.USERNAME = #{e.username}
+        <if test="e.weixinOpenId != null and e.weixinOpenId != '' ">
+            AND t.WEIXIN_OPEN_ID = #{e.weixinOpenId}
+        </if>
+        <if test="e.userName != null and e.userName != '' ">
+            AND t.USER_NAME = #{e.userName}
+        </if>
+        <if test="e.nickName != null and e.nickName != '' ">
+            AND t.NICK_NAME = #{e.nickName}
         </if>
         <if test="e.password != null and e.password != '' ">
             AND t.PASSWORD = #{e.password}
@@ -71,11 +79,32 @@
         <if test="e.status != null and e.status != '' ">
             AND t.STATUS = #{e.status}
         </if>
+        <if test="e.avatar != null and e.avatar != '' ">
+            AND t.AVATAR = #{e.avatar}
+        </if>
         <if test="e.gender != null and e.gender != '' ">
             AND t.GENDER = #{e.gender}
         </if>
+        <if test="e.mobile != null and e.mobile != '' ">
+            AND t.MOBILE = #{e.mobile}
+        </if>
+        <if test="e.country != null and e.country != '' ">
+            AND t.COUNTRY = #{e.country}
+        </if>
+        <if test="e.province != null and e.province != '' ">
+            AND t.PROVINCE = #{e.province}
+        </if>
+        <if test="e.city != null and e.city != '' ">
+            AND t.CITY = #{e.city}
+        </if>
         <if test="e.birthday != null and e.birthday != '' ">
             AND t.BIRTHDAY = #{e.birthday}
+        </if>
+        <if test="e.language != null and e.language != '' ">
+            AND t.LANGUAGE = #{e.language}
+        </if>
+        <if test="e.memberLevelCode != null and e.memberLevelCode != '' ">
+            AND t.MEMBER_LEVEL_CODE = #{e.memberLevelCode}
         </if>
         <if test="e.registerTime != null and e.registerTime != '' ">
             AND t.REGISTER_TIME = #{e.registerTime}
@@ -85,27 +114,6 @@
         </if>
         <if test="e.lastLoginIp != null and e.lastLoginIp != '' ">
             AND t.LAST_LOGIN_IP = #{e.lastLoginIp}
-        </if>
-        <if test="e.userLevelCode != null and e.userLevelCode != '' ">
-            AND t.USER_LEVEL_CODE = #{e.userLevelCode}
-        </if>
-        <if test="e.nickname != null and e.nickname != '' ">
-            AND t.NICKNAME = #{e.nickname}
-        </if>
-        <if test="e.mobile != null and e.mobile != '' ">
-            AND t.MOBILE = #{e.mobile}
-        </if>
-        <if test="e.avatar != null and e.avatar != '' ">
-            AND t.AVATAR = #{e.avatar}
-        </if>
-        <if test="e.weixinOpenid != null and e.weixinOpenid != '' ">
-            AND t.WEIXIN_OPENID = #{e.weixinOpenid}
-        </if>
-        <if test="e.createTime != null and e.createTime != '' ">
-            AND t.CREATE_TIME = #{e.createTime}
-        </if>
-        <if test="e.updateTime != null and e.updateTime != '' ">
-            AND t.UPDATE_TIME = #{e.updateTime}
         </if>
     </sql>
 

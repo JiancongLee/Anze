@@ -28,6 +28,7 @@ import java.io.*;
 import java.util.List;
 import java.util.Date;
 import java.util.Arrays;
+import java.util.UnknownFormatConversionException;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -80,8 +81,30 @@ public class BaseAnnexController extends AbstractController {
     */
     @PostMapping(value = "/delete")
     @RequiresPermissions("baseannex:delete")
-    public Object delete(@RequestBody Integer[] ids) {
-        baseAnnexService.deleteBatchIds(Arrays.asList(ids));
+    public Object delete(@RequestBody String[] ids) {
+
+//        System.out.println("hahah");
+//        BaseAnnexEntity entity = baseAnnexService.selectById(id);
+//        if (entity != null ) {
+//            FileUtil.del(entity.getAbsolutePath());
+//            baseAnnexService.deleteByModel(entity);
+//        }
+//        baseAnnexService.deleteById(id);
+
+
+        for (String id :Arrays.asList(ids)) {
+            BaseAnnexEntity entity = baseAnnexService.selectById(id);
+            if (entity != null ) {
+                FileUtil.del(entity.getAbsolutePath());
+            }
+            baseAnnexService.deleteByModel(entity);
+        }
+//        for(Long id :ids) {
+//            BaseAnnexEntity entity = baseAnnexService.selectById(id);
+//            if (entity != null ) {
+//                FileUtil.del(entity.getAbsolutePath());
+//            }
+//        }
         return Result.ok();
     }
 
@@ -200,7 +223,6 @@ public class BaseAnnexController extends AbstractController {
             throw new DefaultException("上传文件不能为空");
         }
         BaseAnnexEntity entity = AttachUtils.saveTmpFile(file);
-//        BatchBaseinfoAttachEntity entity = AttachUtils.saveTmpFile(file);
         return Result.ok().put("batch",entity);
     }
 
@@ -214,11 +236,9 @@ public class BaseAnnexController extends AbstractController {
     public Result Multi(@RequestParam("file") MultipartFile[] file) throws Exception {
 
         List<BaseAnnexEntity> entities = Lists.newArrayList();
-//        List<BatchBaseinfoAttachEntity> entities = Lists.newArrayList();
         if (file.length > 0){
             for (MultipartFile multipartFile : file) {
                 BaseAnnexEntity entity = AttachUtils.saveTmpFile(multipartFile);
-//                BatchBaseinfoAttachEntity entity = AttachUtils.saveTmpFile(multipartFile);
                 entities.add(entity);
             }
         }
@@ -249,13 +269,12 @@ public class BaseAnnexController extends AbstractController {
                           HttpServletResponse response,@RequestParam("id")String id) throws IOException {
         ServletContext cntx= request.getServletContext();
         BaseAnnexEntity annex = baseAnnexService.selectById(id);
-        System.out.println(annex);
         String localFullPath = FileUtils.joinDirectory(annex.getAbsolutePath(), annex.getFileName());
         File localFile = new File(localFullPath);
         if (!localFile.exists()) {
             // 文件不不存在去FTP下载
-            File localPath = new File(annex.getAbsolutePath());
-            localPath.mkdirs();
+//            File localPath = new File(annex.getAbsolutePath());
+//            localPath.mkdirs();
 //            FtpSynchronServer ftp = new FtpSynchronServer();
 //            boolean downflag = false;
 //            try {
