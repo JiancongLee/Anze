@@ -1,6 +1,7 @@
 package cn.modules.sys.service;
 
 
+import cn.modules.shop.member.entity.ShopMemberEntity;
 import cn.modules.sys.entity.SysUserEntity;
 import cn.modules.sys.entity.SysUserTokenEntity;
 
@@ -25,4 +26,9 @@ public interface ShiroService {
      * @param userId
      */
     SysUserEntity queryUser(Long userId);
+    /**
+     * 根据memberID，查询member
+     * @param memberId
+     */
+    ShopMemberEntity queryMember(Long memberId);
 }

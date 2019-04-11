@@ -17,8 +17,6 @@ import java.util.Date;
  * @email sunlightcs@gmail.com
  * @date 2017/9/21 22:21
  */
-
-//todo 这里需要改一下
 @ConfigurationProperties(prefix = "anze.jwt")
 @Component
 public class JwtUtils {
@@ -31,10 +29,8 @@ public class JwtUtils {
     /**
      * 生成jwt token
      */
-    public String generateToken(long userId) {
+    public String generateToken(String tokenId) {
         Date nowDate = new Date();
-        Sequence sequence = new Sequence(0, 0);
-        String tokenId = String.valueOf(userId)+"_"+sequence.nextId();
         //过期时间
         Date expireDate = new Date(nowDate.getTime() + expire * 1000);
 

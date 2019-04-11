@@ -55,6 +55,18 @@ public class ShopGoodsEntity extends AbstractModel<ShopGoodsEntity> {
     @TableField(value="category_id")
     private String categoryId;
     /**
+     * 商品第一级类别ID
+     */
+    @Excel(name = "商品第一级类别ID")
+    @TableField(value="first_level_category_id")
+    private Long firstLevelCategoryId;
+    /**
+     * 商品第二级类别ID
+     */
+    @Excel(name = "商品第二级类别ID")
+    @TableField(value="second_level_category_id")
+    private Long secondLevelCategoryId;
+    /**
     * 序列号
     */
     @Excel(name = "序列号")
@@ -227,6 +239,23 @@ public class ShopGoodsEntity extends AbstractModel<ShopGoodsEntity> {
     public void setCategoryId(String categoryId) {
         this.categoryId = categoryId;
     }
+
+    public Long getFirstLevelCategoryId() {
+        return firstLevelCategoryId;
+    }
+
+    public void setFirstLevelCategoryId(Long firstLevelCategoryId) {
+        this.firstLevelCategoryId = firstLevelCategoryId;
+    }
+
+    public Long getSecondLevelCategoryId() {
+        return secondLevelCategoryId;
+    }
+
+    public void setSecondLevelCategoryId(Long secondLevelCategoryId) {
+        this.secondLevelCategoryId = secondLevelCategoryId;
+    }
+
     /**
     * 获取: 序列号
     */

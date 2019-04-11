@@ -3,8 +3,10 @@ package cn.modules.security.oauth2;
 import cn.common.exception.DefaultException;
 import cn.common.utils.JwtUtils;
 import cn.common.utils.RedisUtils;
+import cn.modules.shop.member.entity.ShopMemberEntity;
 import cn.modules.sys.entity.SysUserEntity;
 import cn.modules.sys.service.ShiroService;
+import com.alibaba.druid.util.StringUtils;
 import io.jsonwebtoken.Claims;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
@@ -38,6 +40,9 @@ public class OAuth2Realm extends AuthorizingRealm {
      */
     public final static int EXPIRE = 3600 * 3;
 
+    public static final String USRE = "user";
+    public static final String MEMBER = "member";
+
     @Override
     public boolean supports(AuthenticationToken token) {
         return token instanceof OAuth2Token;
@@ -48,6 +53,15 @@ public class OAuth2Realm extends AuthorizingRealm {
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
+
+
+//        object instanceof class
+        if (principals.getPrimaryPrincipal() instanceof SysUserEntity) {
+            System.out.println("3333");
+        } else if (principals.getPrimaryPrincipal() instanceof ShopMemberEntity){
+            System.out.println("4444");
+        }
+
 
         SysUserEntity user = (SysUserEntity)principals.getPrimaryPrincipal();
         Long userId = user.getUserId();
@@ -85,13 +99,32 @@ public class OAuth2Realm extends AuthorizingRealm {
             redisUtils.get(claims.getSubject(),EXPIRE);
         }
 
-        SysUserEntity user = shiroService.queryUser(Long.parseLong(claims.getSubject()));
-        //账号锁定
-        if(user.getStatus() == 0){
-            throw new LockedAccountException("账号已被锁定,请联系管理员");
-        }
+        //todo 区分是user表还是member表数据
+        String tokenId = claims.getSubject();
+        String flag = tokenId.split("_")[0];
+        Long id = Long.parseLong(tokenId.split("_")[1]);
+        SysUserEntity user = null;
+        ShopMemberEntity member = null;
 
-        SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(user, accessToken, getName());
+        if (StringUtils.equals(USRE,flag)) {
+            user = shiroService.queryUser(id);
+        } else if (StringUtils.equals(MEMBER,flag)){
+            member = shiroService.queryMember(id);
+        }
+//        SysUserEntity user = shiroService.queryUser(Long.parseLong(claims.getSubject()));
+//        ShopMemberEntity member = shiroService.queryMember(Long.parseLong(claims.getSubject()));
+
+        SimpleAuthenticationInfo info = null;
+        if (user != null) {
+            //账号锁定
+            if(user.getStatus() == 0){
+                throw new LockedAccountException("账号已被锁定,请联系管理员");
+            } else {
+                info = new SimpleAuthenticationInfo(user, accessToken, getName());
+            }
+        } else if (member != null) {
+            info = new SimpleAuthenticationInfo(member, accessToken, getName());
+        }
         return info;
     }
 }

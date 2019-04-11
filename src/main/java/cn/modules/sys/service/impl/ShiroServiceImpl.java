@@ -2,6 +2,8 @@ package cn.modules.sys.service.impl;
 
 import cn.common.constant.Constant;
 import cn.common.utils.RedisUtils;
+import cn.modules.shop.member.entity.ShopMemberEntity;
+import cn.modules.shop.member.service.ShopMemberService;
 import cn.modules.sys.dao.SysMenuDao;
 import cn.modules.sys.dao.SysUserDao;
 import cn.modules.sys.dao.SysUserTokenDao;
@@ -20,7 +22,7 @@ import static cn.modules.sys.service.impl.SysUserTokenServiceImpl.EXPIRE;
 @Service
 public class ShiroServiceImpl implements ShiroService {
 
-    public static final String USRE_PIX = "user_";
+    public static final String USRE_PIX = "user|";
 
     @Autowired
     private SysMenuDao sysMenuDao;
@@ -28,6 +30,8 @@ public class ShiroServiceImpl implements ShiroService {
     private SysUserDao sysUserDao;
     @Autowired
     private SysUserTokenDao sysUserTokenDao;
+    @Autowired
+    private ShopMemberService shopMemberService;
 
     @Autowired
     private RedisUtils redisUtils;
@@ -70,8 +74,22 @@ public class ShiroServiceImpl implements ShiroService {
             entity = sysUserDao.selectById(userId);
             redisUtils.set(USRE_PIX + userId, entity, EXPIRE);
         } else {
-
+            System.out.println(redisUtils.get(USRE_PIX + userId));
             entity = redisUtils.get(USRE_PIX + userId, SysUserEntity.class, EXPIRE);
+        }
+        return entity;
+    }
+
+    @Override
+    public ShopMemberEntity queryMember(Long memberId) {
+
+        ShopMemberEntity entity = null;
+        if (!redisUtils.exists(USRE_PIX + memberId)){
+            entity = shopMemberService.selectById(memberId);
+            redisUtils.set(USRE_PIX + memberId, entity, EXPIRE);
+        } else {
+
+            entity = redisUtils.get(USRE_PIX + memberId, ShopMemberEntity.class, EXPIRE);
         }
         return entity;
     }

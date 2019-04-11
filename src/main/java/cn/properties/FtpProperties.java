@@ -17,7 +17,7 @@ public class FtpProperties {
 
     private String windowTmp = "D:/tmp";
 
-    private String linuxTmp = "/tmp";
+    private String linuxTmp = "/Users/jianconglee/Tmp";
 
     private String host = "127.0.0.1";
 

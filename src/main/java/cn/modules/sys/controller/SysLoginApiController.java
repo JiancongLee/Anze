@@ -3,6 +3,7 @@ package cn.modules.sys.controller;
 import cn.base.AbstractController;
 import cn.common.utils.HttpKit;
 import cn.common.utils.JwtUtils;
+import cn.common.utils.RedisUtils;
 import cn.common.utils.Result;
 import cn.modules.shop.member.entity.ShopMemberEntity;
 import cn.modules.shop.member.service.ShopMemberService;
@@ -26,6 +27,16 @@ public class SysLoginApiController extends AbstractController {
 	private ShopMemberService shopMemberService;
 	@Autowired
 	private JwtUtils jwtUtils;
+	@Autowired
+	private RedisUtils redisUtils;
+	/**
+	 * user前缀
+	 */
+	public static final String MEMBER_PIX = "member_";
+	/**
+	 * 12小时后过期
+	 */
+	public final static int EXPIRE = 3600 * 3;
 	/**
 	 * 请求的网址
 	 */
@@ -47,7 +58,6 @@ public class SysLoginApiController extends AbstractController {
 	public Object loginByWeixin(@RequestBody wxLoginVo vo) {
 		Map<String,String> map = new HashMap<>();
 		String code = vo.getCode();
-		System.out.println(code);
 
 		map.put("appid",WX_LOGIN_APPID);
 		map.put("secret",WX_LOGIN_SECRET);
@@ -55,7 +65,6 @@ public class SysLoginApiController extends AbstractController {
 		map.put("grant_type",WX_LOGIN_GRANT_TYPE);
 
 		String result  =  HttpKit.sendGet(WX_LOGIN_URL, map);
-		System.out.println(result);
 		JSONObject jsonObject = JSONObject.parseObject(result);
 		String sessionKey = jsonObject.get("session_key").toString();
 		String openId = jsonObject.get("openid").toString();
@@ -63,7 +72,6 @@ public class SysLoginApiController extends AbstractController {
 		Wrapper<ShopMemberEntity> wrapper = new EntityWrapper<>();
 		wrapper.eq("weixin_open_id",openId);
 		ShopMemberEntity entity = shopMemberService.selectOne(wrapper);
-		System.out.println(entity);
 		Long memberId = 0L;
 		if (entity != null) {
 			// 存在用户则更新登陆时间
@@ -72,7 +80,6 @@ public class SysLoginApiController extends AbstractController {
 			shopMemberService.updateById(entity);
 		} else {
 			// 不存在用户则新增
-
 			ShopMemberEntity member = new ShopMemberEntity();
 			member.setNickName(vo.getNickName());
 			member.setAvatar(vo.getAvatarUrl());
@@ -85,10 +92,14 @@ public class SysLoginApiController extends AbstractController {
 			member = (ShopMemberEntity)shopMemberService.insertAndReturn(member);
 			memberId = member.getId();
 		}
-		System.out.println("memberId"+memberId);
-		String token = jwtUtils.generateToken(memberId);
-		System.out.println(token);
-		System.out.println("根据微信登陆");
-		return Result.ok().put("session_key",sessionKey).put("open_id",openId);
+		String tokenId = MEMBER_PIX + memberId;
+		String token = jwtUtils.generateToken(tokenId);
+
+		if (redisUtils.exists(String.valueOf(tokenId))){
+			redisUtils.get(tokenId,EXPIRE);
+		} else {
+			redisUtils.set(tokenId,token,EXPIRE);
+		}
+		return Result.ok().put("token",token);
 	}
 }
