@@ -4,7 +4,9 @@ import cn.common.factory.PageFactory;
 import cn.common.utils.PageUtils;
 import cn.common.utils.Result;
 import cn.modules.shop.goods.entity.ShopGoodsEntity;
+import cn.modules.shop.goods.entity.ViewShopGoodsEntity;
 import cn.modules.shop.goods.service.ShopGoodsService;
+import cn.modules.shop.goods.service.ViewShopGoodsService;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,8 @@ public class ShopGoodsApiController {
 
 	@Autowired
 	private ShopGoodsService shopGoodsService;
+	@Autowired
+	private ViewShopGoodsService viewShopGoodsService;
 
 	/**
 	 * 获取新品商品
@@ -53,6 +57,14 @@ public class ShopGoodsApiController {
 		wrapper.last("limit 4");
 		List<ShopGoodsEntity> hotGoods = shopGoodsService.selectList(wrapper);
 		return Result.ok().put("hotGoods", hotGoods);
+	}
+	/**
+	 * 根据商品id获取商品详细信息
+	 */
+	@GetMapping(value = "/goods/detail")
+	public Object getGoodsDetail(Long id) {
+		ViewShopGoodsEntity goodsInfo = viewShopGoodsService.selectById(id);
+		return Result.ok().put("info", goodsInfo);
 	}
 
 

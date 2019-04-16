@@ -235,6 +235,7 @@ public class BaseAnnexController extends AbstractController {
     @RequestMapping("/multiupload")
     public Result Multi(@RequestParam("file") MultipartFile[] file) throws Exception {
 
+        System.out.println(file);
         List<BaseAnnexEntity> entities = Lists.newArrayList();
         if (file.length > 0){
             for (MultipartFile multipartFile : file) {
