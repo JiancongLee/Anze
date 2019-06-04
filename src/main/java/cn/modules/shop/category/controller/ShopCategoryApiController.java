@@ -79,17 +79,17 @@ public class ShopCategoryApiController extends AbstractController {
 	 * 根据类别Id获取底下的商品
 	 */
 	@GetMapping("/category/getGoodsList")
-	public Object getGoodsList(Long categoryId) {
-		if (categoryId == null) {
+	public Object getGoodsList(Long categoryId, Integer level) {
+		if (categoryId == null || level == null) {
 			return Result.error(-1,"");
 		}
 		ShopCategoryEntity category = shopCategoryService.selectById(categoryId);
-		Long parentId = 0L;
-		if (category != null) {
-			parentId = category.getParentId();
-		}
 		EntityWrapper<ViewShopGoodsEntity> wrapper = new EntityWrapper<>();
-		wrapper.eq("second_level_category_id",categoryId);
+		if (level == 1) {
+			wrapper.eq("first_level_category_id",categoryId);
+		} else if (level ==2) {
+			wrapper.eq("second_level_category_id",categoryId);
+		}
 		List<ViewShopGoodsEntity> goodsList = viewShopGoodsService.selectList(wrapper);
 		return Result.ok().put("currentNav", category).put("data",goodsList);
 	}

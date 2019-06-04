@@ -304,6 +304,8 @@ public class BaseAnnexEntity extends AbstractModel<BaseAnnexEntity> {
     public void preInsert() {
         Sequence sequence = new Sequence(0, 0);
         this.id = sequence.nextId();
+//        Date date = new Date();
+//        this.uploadDate = date;
     }
     @Override
     public void preUpdate() {
