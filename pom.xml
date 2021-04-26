@@ -32,7 +32,7 @@
         <jasypt.version>2.1.0</jasypt.version>
         <commons.lang.version>2.6</commons.lang.version>
         <commons-lang3.version>3.7</commons-lang3.version>
-        <commons.io.version>2.5</commons.io.version>
+        <commons.io.version>2.7</commons.io.version>
         <easypoi.version>3.1.0</easypoi.version>
         <kaptcha.version>0.0.9</kaptcha.version>
 
